@@ -20,7 +20,7 @@ a{color:inherit}
 /* header — Brand Guide p.17 "MeierWerks Digital": teal bar, MW mark, deep margins */
 .site-header{background:var(--teal);color:var(--warm-white)}
 .site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:96px}
-.brand{display:flex;align-items:center;gap:18px;text-decoration:none}
+.brand{display:flex;align-items:center;gap:7px;text-decoration:none}
 .brand .stamp{height:58px;width:auto}
 .brand .wordmark{height:27px;width:auto;margin-top:3px}
 .nav{display:flex;gap:clamp(16px,3vw,40px);list-style:none;margin:0;padding:0}
