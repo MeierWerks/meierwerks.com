@@ -24,3 +24,5 @@ Fonts: DIN Condensed Bold + Futura Medium load from the local Mac (Brand Guide p
 - 2026-09-14: Privacy Policy page REMOVED from meierwerks.com and moved to MW Acoustics (mwacoustic.com/privacy.html) — MW Acoustics owns SDS, so customers read the policy there. Bennett, chat, 2026-09-14.
 
 - 2026-09-14: division colours reassigned per Bennett (chat): Acoustics green #0F492B · Heavy yellow #D38912 · Deep Learning light green #80843E · Magnetics red #9D3F2C · Composites tan #9D8974 · Additive blue #145868. Tiles = delivered marks with the accent fill swapped.
+
+- 2026-09-14: WRKS strip = delivered WRKS colour logo (WRKS logos/wrks-color) + delivered "POWERED BY WRKS" KO lockup (poweredbywerks-blk+ko/poweredbywerks-ko.pdf → SVG) in place of typed text. Bennett, chat.
