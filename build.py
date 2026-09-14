@@ -106,7 +106,24 @@ for name,slug,c,desc,prods in DIVISIONS:
 <div><p class="label">Division</p><h2>{E(name)}</h2><p class="head">{E(head)}</p>{"".join(f"<p>{E(x)}</p>" for x in paras)}
 {('<p class="label" style="margin-top:26px">Current products</p>' + prod_html) if prods else ""}</div></div>''')
 divisions = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Brand architecture</p><h1 style="font-size:clamp(40px,5.5vw,76px)">The operating structure</h1><hr class="rule"><p class="lead" style="margin-top:18px">Every product belongs to one division. Only software carries the WRKS endorsement.</p></div></section>
-<div class="wrap">{"".join(divs)}</div>'''
+<section class="reel" aria-label="MeierWerks ident reel"><div class="reel-sticky"><video id="ident-reel" muted playsinline preload="auto" aria-hidden="true"><source src="assets/video/mw-ident-reel.mp4" type="video/mp4"></video></div></section>
+<div class="wrap">{"".join(divs)}</div>
+<script>
+(function(){{
+  var sec=document.querySelector('.reel'), v=document.getElementById('ident-reel'); if(!sec||!v) return;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){{ v.loop=true; v.autoplay=true; v.play().catch(function(){{}}); return; }}
+  var dur=0, want=0, ticking=false, last=-1;
+  function progress(){{ var r=sec.getBoundingClientRect(); var total=sec.offsetHeight-window.innerHeight; if(total<=0) return 0; return Math.min(1,Math.max(0,-r.top/total)); }}
+  function apply(){{ ticking=false; if(!dur) return; var t=want*dur; if(Math.abs(t-last)<0.02) return; last=t; try{{ v.currentTime=t; }}catch(e){{}} }}
+  var settle=null;
+  function onScroll(){{ want=progress(); if(!ticking){{ ticking=true; requestAnimationFrame(apply); }} clearTimeout(settle); settle=setTimeout(function(){{ want=progress(); ticking=false; apply(); }},90); }}
+  v.addEventListener('loadedmetadata',function(){{ dur=v.duration; v.pause(); onScroll(); }});
+  v.load();
+  window.addEventListener('scroll',onScroll,{{passive:true}}); window.addEventListener('resize',onScroll);
+  document.addEventListener('touchstart',function(){{ if(dur){{ v.play().then(function(){{ v.pause(); apply(); }}).catch(function(){{}}); }} }},{{once:true,passive:true}});
+}})();
+</script>'''
 # ---------- Principles ----------
 principles = f'''<section class="hero" style="padding-bottom:0"><div class="wrap"><p class="eyebrow">Foundation</p>
 <div class="grid"><h1>Where the craft of work meets advanced technology.</h1>

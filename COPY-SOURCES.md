@@ -26,3 +26,5 @@ Fonts: DIN Condensed Bold + Futura Medium load from the local Mac (Brand Guide p
 - 2026-09-14: division colours reassigned per Bennett (chat): Acoustics green #0F492B · Heavy yellow #D38912 · Deep Learning light green #80843E · Magnetics red #9D3F2C · Composites tan #9D8974 · Additive blue #145868. Tiles = delivered marks with the accent fill swapped.
 
 - 2026-09-14: WRKS strip = delivered WRKS colour logo (WRKS logos/wrks-color) + delivered "POWERED BY WRKS" KO lockup (poweredbywerks-blk+ko/poweredbywerks-ko.pdf → SVG) in place of typed text. Bennett, chat.
+
+- 2026-09-14: Divisions page — MeierWerks ident reel (MW-ident-reel-v1_white.mp4, Bennett, chat) integrated as a scroll-scrubbed band between the page title and the division sections: the reel advances as you scroll down and rewinds as you scroll up; reduced-motion users get a looping autoplay instead.

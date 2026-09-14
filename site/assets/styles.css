@@ -144,3 +144,8 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .mark a:hover .divname{opacity:.75}
 
 .wrks .pbw{display:block;height:clamp(28px,3vw,42px);width:auto;margin-bottom:10px}
+
+.reel{height:340vh;background:#FEFEFE;border-top:1px solid var(--rule)}
+.reel-sticky{position:sticky;top:0;height:100vh;display:grid;place-items:center;background:#FEFEFE}
+.reel-sticky video{width:min(78vh,92vw,760px);height:auto;aspect-ratio:1;display:block;background:#FEFEFE;object-fit:contain}
+@media (prefers-reduced-motion:reduce){.reel{height:auto;padding-block:clamp(32px,5vw,72px)}.reel-sticky{position:static;height:auto}}
