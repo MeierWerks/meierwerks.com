@@ -19,10 +19,10 @@ a{color:inherit}
 .wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
 /* header — Brand Guide p.17 "MeierWerks Digital": teal bar, MW mark, deep margins */
 .site-header{background:var(--teal);color:var(--warm-white)}
-.site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:84px}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:96px}
 .brand{display:flex;align-items:center;gap:18px;text-decoration:none}
-.brand img{height:52px;width:auto}
-.brand span{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:.01em;line-height:1;text-transform:uppercase;padding-top:4px}
+.brand .stamp{height:58px;width:auto}
+.brand .wordmark{height:27px;width:auto;margin-top:3px}
 .nav{display:flex;gap:clamp(16px,3vw,40px);list-style:none;margin:0;padding:0}
 .nav a{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:19px;text-decoration:none;opacity:.92;padding:6px 0;border-bottom:2px solid transparent}
 .nav a:hover,.nav a:focus-visible{opacity:1;border-color:var(--gold);outline:none}
@@ -52,11 +52,12 @@ section.tight{padding-block:clamp(36px,5vw,64px)}
 .statement p:last-child{margin:0}
 /* division tiles — Brand Guide p.10 diagonal-half working format */
 .divisions{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,28px)}
-.division{background:var(--warm-white);color:var(--ink);border-radius:14px;padding:26px 24px 24px;display:grid;grid-template-columns:96px 1fr;gap:20px;align-items:start;text-decoration:none;border:1px solid rgba(18,18,17,.08)}
+.division{background:#FBF8F1;color:var(--ink);border-radius:14px;padding:26px 24px 24px;display:grid;grid-template-columns:96px 1fr;gap:22px;align-items:start;text-decoration:none}
 .division:hover .tile,.division:focus-visible .tile{transform:translateY(-2px)}
 .division:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
-.tile{width:96px;height:96px;border-radius:24px;background:linear-gradient(135deg,var(--warm-white) 50%,var(--c) 50%);display:grid;place-items:center;transition:transform .2s;border:1px solid rgba(18,18,17,.08)}
-.tile img{width:64px;height:64px}
+.tile{width:96px;height:96px;display:block;transition:transform .2s;filter:drop-shadow(0 1px 2px rgba(18,18,17,.14))}
+.tile.big{width:132px;height:132px}
+.divname{height:32px;width:auto}
 .division .name{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:26px;line-height:1;color:var(--ink)}
 .division .role{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:12px;color:var(--muted);margin:4px 0 10px}
 .division p{font-size:16px;margin:0;color:var(--ink)}
@@ -76,7 +77,8 @@ section.tight{padding-block:clamp(36px,5vw,64px)}
 /* division detail pages */
 .div-section{display:grid;grid-template-columns:5fr 7fr;gap:clamp(28px,5vw,72px);align-items:start;padding-block:clamp(48px,6vw,88px);border-top:1px solid var(--rule)}
 .div-section:first-of-type{border-top:0}
-.div-section .mark{display:flex;align-items:center;gap:20px;margin-bottom:22px}
+.div-section .mark{display:flex;flex-wrap:wrap;align-items:center;gap:20px;margin-bottom:22px}
+.divname{max-width:100%}
 .div-section .photo{border-radius:14px;overflow:hidden;aspect-ratio:1500/1234;background:var(--silver)}
 .div-section .photo img{width:100%;height:100%;object-fit:cover}
 .div-section h2{font-size:clamp(36px,4vw,54px)}
@@ -133,7 +135,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
   .divisions{grid-template-columns:1fr}
   .member{grid-template-columns:120px 1fr}
   .nav{gap:14px}.nav a{font-size:17px}
-  .brand span{display:none}
+  .brand .wordmark{height:18px}.brand .stamp{height:44px}
   body{font-size:18px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tile{transition:none}}

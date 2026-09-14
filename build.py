@@ -50,12 +50,12 @@ def shell(title, body, current=None, desc="MeierWerks. Where the craft of work m
     return f'''<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{E(title)}</title><meta name="description" content="{E(desc)}">
-<link rel="icon" href="assets/logos/mw-circle-black.svg" type="image/svg+xml">
+<link rel="icon" href="assets/logos/mw-circle-black.svg" type="image/svg+xml"><meta name="theme-color" content="#145868">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Jost:ital,wght@0,500;1,500&display=swap">
 <link rel="stylesheet" href="assets/styles.css"></head>
 <body>
 <header class="site-header"><div class="wrap">
-<a class="brand" href="index.html" aria-label="MeierWerks home"><img src="assets/logos/mw-stamp-white.svg" alt="MW"><span>MeierWerks</span></a>
+<a class="brand" href="index.html" aria-label="MeierWerks home"><img class="stamp" src="assets/logos/mw-stamp-white.svg" alt=""><img class="wordmark" src="assets/logos/wordmark-white.svg" alt="MeierWerks"></a>
 <nav aria-label="Primary"><ul class="nav">{nav}</ul></nav>
 </div></header>
 <main>{body}</main>
@@ -71,7 +71,7 @@ def division_tile(d):
     name,slug,c,desc,prods = d
     if prods: p = '<div class="products">Current products: ' + " · ".join(E(PRODUCTS[k]["name"]) for k in prods) + '</div>'
     else: p = '<div class="products tocome">Products to come</div>'
-    return f'''<a class="division" href="divisions.html#{slug}"><div class="tile" style="--c:{c}"><img src="assets/logos/mw-circle-black.svg" alt=""></div>
+    return f'''<a class="division" href="divisions.html#{slug}"><img class="tile" src="assets/logos/tile-{slug}.svg" alt="">
 <div><div class="name">{E(name)}</div><div class="role">Division</div><p>{E(desc)}</p>{p}</div></a>'''
 
 def product_card(k):
@@ -82,14 +82,14 @@ def product_card(k):
 
 # ---------- Home ----------
 home = f'''
-<section class="hero"><div class="wrap"><p class="eyebrow"><span class="n">01</span>Foundation</p>
+<section class="hero"><div class="wrap"><p class="eyebrow">Foundation</p>
 <div class="grid"><h1>Where the craft of work meets advanced technology.</h1>
 <div class="statement"><p>MeierWerks creates products and systems by joining analog judgment and material intelligence with skilled workmanship and the most advanced technologies.</p><p>Technology is not the identity. It is a tool in service of more thoughtful, useful and beautiful work.</p></div></div></div></section>
-<section class="band-teal"><div class="wrap"><p class="eyebrow"><span class="n">02</span>Brand architecture</p>
+<section class="band-teal"><div class="wrap"><p class="eyebrow">Brand architecture</p>
 <h2>One ownership brand. Distinct divisions. Products with a clear home.</h2>
 <p class="lead" style="margin:18px 0 36px">Every product belongs to one division. Only software carries the WRKS endorsement.</p>
 <div class="divisions">{"".join(division_tile(d) for d in DIVISIONS)}</div></div></section>
-<section><div class="wrap"><p class="eyebrow"><span class="n">01</span>Foundation</p><h2>Four governing principles</h2><hr class="rule" style="margin-bottom:36px">
+<section><div class="wrap"><p class="eyebrow">Foundation</p><h2>Four governing principles</h2><hr class="rule" style="margin-bottom:36px">
 <div class="principles">{"".join(f'<div class="principle"><div class="num">{i:02d}</div><div><h3>{E(t)}</h3><p>{E(b)}</p></div></div>' for i,(t,b) in enumerate(PRINCIPLES,1))}</div></div></section>
 <section class="band-black tight"><div class="wrap wrks"><img src="assets/logos/wrks-color.svg" alt="WRKS"><p>All MeierWerks software is “Powered by WRKS.”<small>WRKS is MeierWerks’ proprietary system for developing software. A cross-portfolio capability — not a division or product.</small></p></div></section>
 '''
@@ -99,14 +99,14 @@ for name,slug,c,desc,prods in DIVISIONS:
     head, paras = LIVE_DIV[slug]
     prod_html = f'<div class="products-grid">{"".join(product_card(k) for k in prods)}</div>' if prods else '<div class="tocome">Products to come</div>'
     divs.append(f'''<div class="div-section" id="{slug}"><div>
-<div class="mark"><div class="tile" style="--c:{c}"><img src="assets/logos/mw-circle-black.svg" alt=""></div><img src="assets/logos/division-{slug}-black.svg" alt="{E(name)}" style="height:34px;width:auto"></div>
+<div class="mark"><img class="tile big" src="assets/logos/tile-{slug}.svg" alt=""><img class="divname" src="assets/logos/division-{slug}-black.svg" alt="{E(name)}"></div>
 </div>
 <div><p class="label">Division</p><h2>{E(name)}</h2><p class="head">{E(head)}</p>{"".join(f"<p>{E(x)}</p>" for x in paras)}
 <p class="label" style="margin-top:26px">{"Current products" if prods else ""}</p>{prod_html}</div></div>''')
-divisions = f'''<section class="tight"><div class="wrap"><p class="eyebrow"><span class="n">02</span>Brand architecture</p><h1 style="font-size:clamp(40px,5.5vw,76px)">The operating structure</h1><hr class="rule"><p class="lead" style="margin-top:18px">Every product belongs to one division. Only software carries the WRKS endorsement.</p></div></section>
+divisions = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Brand architecture</p><h1 style="font-size:clamp(40px,5.5vw,76px)">The operating structure</h1><hr class="rule"><p class="lead" style="margin-top:18px">Every product belongs to one division. Only software carries the WRKS endorsement.</p></div></section>
 <div class="wrap">{"".join(divs)}</div>'''
 # ---------- Principles ----------
-principles = f'''<section class="hero" style="padding-bottom:0"><div class="wrap"><p class="eyebrow"><span class="n">01</span>Foundation</p>
+principles = f'''<section class="hero" style="padding-bottom:0"><div class="wrap"><p class="eyebrow">Foundation</p>
 <div class="grid"><h1>Where the craft of work meets advanced technology.</h1>
 <div class="statement"><p>MeierWerks creates products and systems by joining analog judgment and material intelligence with skilled workmanship and the most advanced technologies.</p><p>Technology is not the identity. It is a tool in service of more thoughtful, useful and beautiful work.</p></div></div></div></section>
 <section><div class="wrap"><h2>Four governing principles</h2><hr class="rule" style="margin-bottom:36px">
