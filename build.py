@@ -17,7 +17,7 @@ PRODUCTS = {  # Brand Architecture sheet + Brand Guide p.11
    blurb="A floor-standing speaker of exceptional quality and beauty, created through an agnostic approach to design and engineering—drawing from traditional analogue craft and advanced digital technologies wherever each best serves the sound. The result is outstanding acoustics, distinctive beauty and a singularly expressive listening experience."),
  "sds": dict(name="SDS : Speaker Design Suite", tag="Design your sound. See every decision.", mark="sds-mark.svg", pow=True,
    blurb="SDS turns speaker building into a guided, interactive experience. Explore components and configurations—and see, in real time, how every choice affects cost, performance and the finished result."),
- "metagraph": dict(name="MetaGraph", tag="Coordinate your desktop and all of your AI in one system", mark=None, pow=True,
+ "metagraph": dict(name="MetaGraph", tag="Coordinate your desktop and all of your AI in one system", mark="mg-mark.svg", pow=True,
    blurb="Connect, clarify and harness your AI tools, apps, information, data and correspondence in one engineered, adaptable and highly usable system."),
 }
 # Live meierwerks.com/divisions copy, verbatim (headline, paragraphs)
