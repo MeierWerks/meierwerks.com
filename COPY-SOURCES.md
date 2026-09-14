@@ -10,7 +10,7 @@ Rule for this build: no new copy. Every sentence on the site comes from one of t
 | Division one-line descriptors (six) | Brand Architecture sheet, sections 3–4 |
 | Division colours | Brand Guide p.10 |
 | Four governing principles (titles + text) | Brand Guide p.4 |
-| WRKS strip: "All MeierWerks software is 'Powered by WRKS.'" + "MeierWerks' proprietary system for developing software" + "cross-portfolio capability — not a division or product" | Brand Architecture sheet, section 2 |
+| WRKS strip: "Powered by WRKS." + "WRKS is MeierWerks' proprietary software engine, deployed across every MW software solution." | Bennett, in chat 2026-09-14 (replaced the Architecture-sheet wording at his request) |
 | Division headlines + paragraphs (FOCuS, SONIFoRM, THNSeT, FoAM, BRiDG, ISo-TL) | live meierwerks.com/divisions, verbatim |
 | NEO • ONE / SDS / MetaGraph names, taglines, blurbs, "Powered by WRKS" | Brand Guide p.11 + Brand Architecture sheet, section 3 |
 | Mission and proof (Principles page, teal band) | Diane, "For Bennett's deck. Proposal - Mission.docx" (Aug 2026) — written for the deck; easy to remove |
