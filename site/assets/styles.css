@@ -143,4 +143,4 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .mark a{display:inline-flex;align-items:center;gap:inherit;text-decoration:none}
 .mark a:hover .divname{opacity:.75}
 
-.wrks .pbw{display:block;height:26px;width:auto;margin-bottom:8px}
+.wrks .pbw{display:block;height:clamp(28px,3vw,42px);width:auto;margin-bottom:10px}
