@@ -28,3 +28,5 @@ Fonts: DIN Condensed Bold + Futura Medium load from the local Mac (Brand Guide p
 - 2026-09-14: WRKS strip = delivered WRKS colour logo (WRKS logos/wrks-color) + delivered "POWERED BY WRKS" KO lockup (poweredbywerks-blk+ko/poweredbywerks-ko.pdf → SVG) in place of typed text. Bennett, chat.
 
 - 2026-09-14: Divisions page — MeierWerks ident reel (MW-ident-reel-v1_white.mp4, Bennett, chat) integrated as a scroll-scrubbed band between the page title and the division sections: the reel advances as you scroll down and rewinds as you scroll up; reduced-motion users get a looping autoplay instead.
+
+- 2026-09-14 (later): Divisions page reel re-done per Bennett: the reel sits sticky beside the division sections; as each section reaches mid-screen the reel plays that division's tile segment (Additive 0.85–1.7 s teal · Acoustics 1.7–2.5 green · Composites 2.5–3.5 tan · Magnetics 3.45–4.3 red · Heavy 4.45–5.3 gold · Deep Learning 5.3–7.1 olive); at the page bottom the logo transformation (7.1–10.9 s) plays. Frames drawn to a canvas from the hidden video.

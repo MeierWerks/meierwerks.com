@@ -100,28 +100,41 @@ divs = []
 for name,slug,c,desc,prods in DIVISIONS:
     head, paras = LIVE_DIV[slug]
     prod_html = f'<div class="products-grid">{"".join(product_card(k) for k in prods)}</div>' if prods else ""
-    divs.append(f'''<div class="div-section" id="{slug}"><div>
+    divs.append(f'''<div class="div-section" id="{slug}" data-slug="{slug}"><div>
 <div class="mark">{'<a href="'+DIVISION_SITES[slug]+'" target="_blank" rel="noopener" aria-label="'+E(name)+' website">' if slug in DIVISION_SITES else ''}<img class="tile big" src="assets/logos/tile-{slug}.svg" alt=""><img class="divname" src="assets/logos/division-{slug}-black.svg" alt="{E(name)}">{'</a>' if slug in DIVISION_SITES else ''}</div>
 </div>
 <div><p class="label">Division</p><h2>{E(name)}</h2><p class="head">{E(head)}</p>{"".join(f"<p>{E(x)}</p>" for x in paras)}
 {('<p class="label" style="margin-top:26px">Current products</p>' + prod_html) if prods else ""}</div></div>''')
 divisions = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Brand architecture</p><h1 style="font-size:clamp(40px,5.5vw,76px)">The operating structure</h1><hr class="rule"><p class="lead" style="margin-top:18px">Every product belongs to one division. Only software carries the WRKS endorsement.</p></div></section>
-<section class="reel" aria-label="MeierWerks ident reel"><div class="reel-sticky"><video id="ident-reel" muted playsinline preload="auto" aria-hidden="true"><source src="assets/video/mw-ident-reel.mp4" type="video/mp4"></video></div></section>
-<div class="wrap">{"".join(divs)}</div>
+<div class="wrap divs-layout"><div class="divs-video"><canvas id="ident-reel-canvas" width="1080" height="1080" aria-hidden="true"></canvas><video id="ident-reel" class="reel-src" muted playsinline preload="auto" aria-hidden="true"><source src="assets/video/mw-ident-reel.mp4" type="video/mp4"></video></div>
+<div class="divs-list">{"".join(divs)}</div></div>
 <script>
 (function(){{
-  var sec=document.querySelector('.reel'), v=document.getElementById('ident-reel'); if(!sec||!v) return;
+  var v=document.getElementById('ident-reel'), list=document.querySelector('.divs-list'), cv=document.getElementById('ident-reel-canvas'); if(!v||!list||!cv) return;
+  var cx=cv.getContext('2d'); function draw(){{ try{{ cx.drawImage(v,0,0,cv.width,cv.height); }}catch(e){{}} }}
+  v.addEventListener('seeked',draw); v.addEventListener('loadeddata',draw); v.addEventListener('timeupdate',draw);
+  var SEG={{additive:[0.85,1.7],acoustics:[1.7,2.5],composites:[2.5,3.5],magnetics:[3.45,4.3],heavy:[4.45,5.3],deeplearning:[5.3,7.1]}}, FINALE=[7.1,10.9];
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){{ v.loop=true; v.autoplay=true; v.play().catch(function(){{}}); return; }}
-  var dur=0, want=0, ticking=false, last=-1;
-  function progress(){{ var r=sec.getBoundingClientRect(); var total=sec.offsetHeight-window.innerHeight; if(total<=0) return 0; return Math.min(1,Math.max(0,-r.top/total)); }}
-  function apply(){{ ticking=false; if(!dur) return; var t=want*dur; if(Math.abs(t-last)<0.02) return; last=t; try{{ v.currentTime=t; }}catch(e){{}} }}
-  var settle=null;
-  function onScroll(){{ want=progress(); if(!ticking){{ ticking=true; requestAnimationFrame(apply); }} clearTimeout(settle); settle=setTimeout(function(){{ want=progress(); ticking=false; apply(); }},90); }}
-  v.addEventListener('loadedmetadata',function(){{ dur=v.duration; v.pause(); onScroll(); }});
-  v.load();
+  if(reduce){{ v.loop=true; v.autoplay=true; v.play().catch(function(){{}}); (function loopDraw(){{ draw(); requestAnimationFrame(loopDraw); }})(); return; }}
+  var secs=Array.prototype.slice.call(list.querySelectorAll('.div-section')), active=null, cur=0, ready=false;
+  function seek(t){{ try{{ v.currentTime=t; }}catch(e){{}} }}
+  var seg=null, last=0, rafId=null, settleA=null, settleB=null;
+  function stop(){{ if(rafId){{ cancelAnimationFrame(rafId); rafId=null; }} clearTimeout(settleA); clearTimeout(settleB); }}
+  function frame(now){{ rafId=requestAnimationFrame(frame); if(!seg) return; var dt=Math.min(0.1,(now-last)/1000); last=now; cur=Math.min(seg[1],cur+dt); if(!v.seeking) seek(cur);
+    if(cur>=seg[1]){{ var end=seg[1]; stop(); seg=null; settleA=setTimeout(function(){{ seek(end); }},80); settleB=setTimeout(function(){{ if(Math.abs(v.currentTime-end)>0.01) seek(end); }},300); }} }}
+  function run(s){{ stop(); seg=s; cur=s[0]; seek(cur); last=performance.now(); rafId=requestAnimationFrame(frame); }}
+  function pick(){{ if(!ready) return; var mid=window.innerHeight*0.5, cur_=null;
+    for(var i=0;i<secs.length;i++){{ var r=secs[i].getBoundingClientRect(); if(r.top<=mid) cur_=secs[i]; }}
+    var lr=list.getBoundingClientRect(); var atEnd=(window.innerHeight+window.scrollY)>=(document.documentElement.scrollHeight-24); var finale = atEnd || lr.bottom <= window.innerHeight*0.6;
+    var key = finale ? 'finale' : (cur_ ? cur_.dataset.slug : 'top');
+    if(key===active) return; active=key;
+    if(key==='top'){{ stop(); seg=null; seek(0); return; }}
+    run(key==='finale' ? FINALE : SEG[key]);
+  }}
+  var t=null; function onScroll(){{ if(t) return; t=setTimeout(function(){{ t=null; pick(); }},50); }}
+  v.addEventListener('loadedmetadata',function(){{ ready=true; v.pause(); pick(); }},{{once:true}});
+  if(v.readyState>=1){{ ready=true; pick(); }} else v.load();
   window.addEventListener('scroll',onScroll,{{passive:true}}); window.addEventListener('resize',onScroll);
-  document.addEventListener('touchstart',function(){{ if(dur){{ v.play().then(function(){{ v.pause(); apply(); }}).catch(function(){{}}); }} }},{{once:true,passive:true}});
 }})();
 </script>'''
 # ---------- Principles ----------
