@@ -97,58 +97,50 @@ home = f'''
 <section class="band-black tight"><div class="wrap wrks"><img src="assets/logos/wrks-color.svg" alt="WRKS"><p><img class="pbw" src="assets/logos/powered-by-wrks-white.svg" alt="Powered by WRKS"><small>WRKS is MeierWerks’ proprietary software engine, deployed across every MW software solution.</small></p></div></section>
 '''
 # ---------- Divisions ----------
-REEL_ORDER=["additive","acoustics","composites","magnetics","heavy","deeplearning"]  # the ident reel's own colour sequence; the Divisions page follows it so the reel scrubs linearly
 divs = []
-for name,slug,c,desc,prods in sorted(DIVISIONS,key=lambda d: REEL_ORDER.index(d[1])):
+for name,slug,c,desc,prods in DIVISIONS:
     head, paras = LIVE_DIV[slug]
     prod_html = f'<div class="products-grid">{"".join(product_card(k) for k in prods)}</div>' if prods else ""
     divs.append(f'''<div class="div-section" id="{slug}" data-slug="{slug}"><div>
-<div class="mark">{'<a href="'+DIVISION_SITES[slug]+'" target="_blank" rel="noopener" aria-label="'+E(name)+' website">' if slug in DIVISION_SITES else ''}<img class="tile big" src="assets/logos/tile-{slug}.svg" alt=""><img class="divname" src="assets/logos/division-{slug}-black.svg" alt="{E(name)}">{'</a>' if slug in DIVISION_SITES else ''}</div>
+<div class="mark">{'<a href="'+DIVISION_SITES[slug]+'" target="_blank" rel="noopener" aria-label="'+E(name)+' website">' if slug in DIVISION_SITES else ''}<img class="tile big" src="assets/logos/tile-{slug}.svg" alt=""><canvas class="tile big reel-tile" width="264" height="264" data-color="{c}" aria-hidden="true"></canvas><img class="divname" src="assets/logos/division-{slug}-black.svg" alt="{E(name)}">{'</a>' if slug in DIVISION_SITES else ''}</div>
 </div>
 <div><p class="label">Division</p><h2>{E(name)}</h2><p class="head">{E(head)}</p>{"".join(f"<p>{E(x)}</p>" for x in paras)}
 {('<p class="label" style="margin-top:26px">Current products</p>' + prod_html) if prods else ""}</div></div>''')
 divisions = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Brand architecture</p><h1 style="font-size:clamp(40px,5.5vw,76px)">The operating structure</h1><hr class="rule"><p class="lead" style="margin-top:18px">Every product belongs to one division. Only software carries the WRKS endorsement.</p></div></section>
-<div class="wrap divs-layout"><div class="divs-video"><canvas id="ident-reel-canvas" width="1080" height="1080" aria-hidden="true"></canvas><video id="ident-reel" class="reel-src" muted playsinline preload="auto" aria-hidden="true"><source src="assets/video/mw-ident-reel.mp4" type="video/mp4"></video></div>
-<div class="divs-list">{"".join(divs)}</div></div>
+<div class="wrap divs-list">{"".join(divs)}</div>
+<video id="ident-reel" class="reel-src" muted playsinline preload="auto" aria-hidden="true"><source src="assets/video/mw-ident-reel.mp4" type="video/mp4"></video>
 <script>
 (function(){{
-  var v=document.getElementById('ident-reel'), list=document.querySelector('.divs-list'), cv=document.getElementById('ident-reel-canvas'); if(!v||!list||!cv) return;
-  var cx=cv.getContext('2d'); function draw(){{ try{{ cx.drawImage(v,0,0,cv.width,cv.height); }}catch(e){{}} }}
-  v.addEventListener('seeked',draw); v.addEventListener('loadeddata',draw); v.addEventListener('timeupdate',draw);
-  var HOLD={{additive:1.4,acoustics:2.2,composites:3.0,magnetics:4.0,heavy:5.0,deeplearning:6.2}}, FINALE_END=10.9;
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){{ v.loop=true; v.autoplay=true; v.play().catch(function(){{}}); (function loopDraw(){{ draw(); requestAnimationFrame(loopDraw); }})(); return; }}
-  var secs=Array.prototype.slice.call(list.querySelectorAll('.div-section')), ready=false, pending=null, applied=-1;
-  function seek(t){{ if(Math.abs(t-applied)<0.01) return; if(v.seeking){{ pending=t; return; }} applied=t; pending=null; try{{ v.currentTime=t; }}catch(e){{}} }}
-  v.addEventListener('seeked',function(){{ if(pending!==null){{ var p=pending; pending=null; applied=-1; seek(p); }} }});
-  function lerp(a,b,p){{ return a+(b-a)*Math.min(1,Math.max(0,p)); }}
-  function target(){{
-    var cr=cv.getBoundingClientRect(); var ref=window.scrollY+cr.top+cr.height/2;   // reference = the vertical midpoint of the reel graphic itself
-    var tops=secs.map(function(s){{ return s.getBoundingClientRect().top+window.scrollY; }});
-    var hs=secs.map(function(s){{ return s.getBoundingClientRect().height; }});
-    var Zmax=Math.max(120,Math.min(260,window.innerHeight*0.22));    // half-width of a boundary transition zone, shrunk for short sections
-    function zone(i){{ var h=Math.min(i>0?hs[i-1]:hs[0], hs[Math.min(i,hs.length-1)]); return Math.max(60,Math.min(Zmax,h*0.28)); }}
-    var Z=zone(0);
-    var holds=secs.map(function(s){{ return HOLD[s.dataset.slug]; }});
-    var last=secs[secs.length-1]; var lastBottom=last.getBoundingClientRect().bottom+window.scrollY;
-    var pageEnd=document.documentElement.scrollHeight;
-    // before the first section: plain mark → first colour across the first boundary
-    if(ref<tops[0]-Z) return 0;
-    if(ref<tops[0]+Z) return lerp(0,holds[0],(ref-(tops[0]-Z))/(2*Z));
-    for(var i=0;i<secs.length-1;i++){{
-      var b_=tops[i+1], Zi=zone(i+1);
-      if(ref<b_-Zi) return holds[i];
-      if(ref<b_+Zi) return lerp(holds[i],holds[i+1],(ref-(b_-Zi))/(2*Zi));
-    }}
-    // last section holds until its end; then the transformation scrubs to the page bottom
-    Z=zone(secs.length-1); var maxRef=(pageEnd-window.innerHeight)+cr.top+cr.height/2; var endStart=Math.min(lastBottom-Z, maxRef-window.innerHeight*0.35), endStop=maxRef; if(endStop<=endStart) endStop=endStart+1;
-    if(ref<endStart) return holds[holds.length-1];
-    return lerp(holds[holds.length-1],FINALE_END,(ref-endStart)/(endStop-endStart));
+  var v=document.getElementById('ident-reel'); if(!v) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;          // static SVG tiles stay
+  var WIPE=[0.80,1.20], TEAL=[19,88,104], N=264;   // the reel's plain→colour wipe (teal), recoloured per division
+  var tiles=Array.prototype.slice.call(document.querySelectorAll('canvas.reel-tile'));
+  var work=document.createElement('canvas'); work.width=work.height=N; var wx=work.getContext('2d',{{willReadFrequently:true}});
+  function hex(h){{ return [parseInt(h.substr(1,2),16),parseInt(h.substr(3,2),16),parseInt(h.substr(5,2),16)]; }}
+  function grab(){{ wx.drawImage(v,0,0,N,N); return wx.getImageData(0,0,N,N); }}
+  function recolor(img,target){{ var d=new Uint8ClampedArray(img.data); var dr=target[0]-TEAL[0],dg=target[1]-TEAL[1],db=target[2]-TEAL[2];
+    for(var i=0;i<d.length;i+=4){{ var r=d[i],g=d[i+1],bl=d[i+2]; var dist=Math.abs(r-TEAL[0])+Math.abs(g-TEAL[1])+Math.abs(bl-TEAL[2]); if(dist<150){{ var w=dist<40?1:1-(dist-40)/110; d[i]=r+dr*w; d[i+1]=g+dg*w; d[i+2]=bl+db*w; }} }}
+    return new ImageData(d,N,N); }}
+  var plain=null, cache={{}}, ready=false, busy=false, queued=null;
+  function seek(t){{ return new Promise(function(res){{ if(Math.abs(v.currentTime-t)<0.005){{ res(); return; }} v.addEventListener('seeked',function h(){{ v.removeEventListener('seeked',h); res(); }}); v.currentTime=t; }}); }}
+  function paint(tile,img){{ tile.getContext('2d').putImageData(img,0,0); }}
+  function show(tile){{ if(!tile.classList.contains('on')){{ tile.classList.add('on'); var im=tile.previousElementSibling; if(im&&im.tagName==='IMG') im.classList.add('hidden'); }} }}
+  function progress(tile){{ var r=tile.getBoundingClientRect(); var y=r.top+r.height/2, H=window.innerHeight; return (H*0.85-y)/(H*0.38); }}   // 0 as the mark enters from below, 1 by mid-screen
+  var state=tiles.map(function(){{ return -2; }});
+  async function update(){{ if(!ready){{ return; }} if(busy){{ queued=true; return; }} busy=true;
+    try{{
+      var live=null, liveP=0;
+      for(var i=0;i<tiles.length;i++){{ var p=Math.min(1,Math.max(0,progress(tiles[i]))); var key=p<=0?0:p>=1?1:p;
+        if(key===0||key===1){{ if(state[i]!==key){{ paint(tiles[i], key===0?plain:cache[tiles[i].dataset.color]); show(tiles[i]); state[i]=key; }} }}
+        else if(live===null||Math.abs(p-0.5)<Math.abs(liveP-0.5)){{ live=i; liveP=p; }} }}
+      if(live!==null){{ var t=WIPE[0]+liveP*(WIPE[1]-WIPE[0]); await seek(t); paint(tiles[live], recolor(grab(), hex(tiles[live].dataset.color))); show(tiles[live]); state[live]=liveP; }}
+    }} finally {{ busy=false; if(queued){{ queued=false; update(); }} }}
   }}
-  var raf=null; function update(){{ raf=null; if(!ready) return; seek(target()); }}
-  function onScroll(){{ if(!raf) raf=requestAnimationFrame(update); }}
-  v.addEventListener('loadedmetadata',function(){{ ready=true; v.pause(); update(); }},{{once:true}});
-  if(v.readyState>=1){{ ready=true; update(); }} else v.load();
+  async function init(){{ await seek(WIPE[0]); plain=grab(); await seek(WIPE[1]); var teal=grab();
+    tiles.forEach(function(tile){{ var c=tile.dataset.color; if(!cache[c]) cache[c]=recolor(teal,hex(c)); }});
+    ready=true; update(); }}
+  function onScroll(){{ update(); }}
+  if(v.readyState>=2) init(); else {{ v.addEventListener('loadeddata',init,{{once:true}}); v.load(); }}
   window.addEventListener('scroll',onScroll,{{passive:true}}); window.addEventListener('resize',onScroll);
 }})();
 </script>'''
