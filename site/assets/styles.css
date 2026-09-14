@@ -139,3 +139,6 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
   body{font-size:18px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tile{transition:none}}
+
+.mark a{display:inline-flex;align-items:center;gap:inherit;text-decoration:none}
+.mark a:hover .divname{opacity:.75}

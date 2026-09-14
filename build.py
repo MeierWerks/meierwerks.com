@@ -12,6 +12,7 @@ DIVISIONS = [  # name, slug, colour, one-line descriptor (Brand Architecture she
  ("MW Composites","composites","#9D8974","Advanced composite materials and systems.",[]),
  ("MW Additive","additive","#80843E","Additive design and manufacturing.",[]),
 ]
+DIVISION_SITES = {"acoustics":"https://mwacoustic.com"}  # Bennett 2026-09-14: a division with a live site is clickable through to it
 PRODUCTS = {  # Brand Architecture sheet + Brand Guide p.11
  "neo-one": dict(name="NEO • ONE", tag="Premier floor-standing speaker", mark="neo-one-mark.svg", pow=False,
    blurb="A floor-standing speaker of exceptional quality and beauty, created through an agnostic approach to design and engineering—drawing from traditional analogue craft and advanced digital technologies wherever each best serves the sound. The result is outstanding acoustics, distinctive beauty and a singularly expressive listening experience."),
@@ -71,7 +72,8 @@ def division_tile(d):
     name,slug,c,desc,prods = d
     if prods: p = '<div class="products">Current products: ' + " · ".join(E(PRODUCTS[k]["name"]) for k in prods) + '</div>'
     else: p = ""
-    return f'''<a class="division" href="divisions.html#{slug}"><img class="tile" src="assets/logos/tile-{slug}.svg" alt="">
+    href=DIVISION_SITES.get(slug,f"divisions.html#{slug}"); ext=' target="_blank" rel="noopener"' if slug in DIVISION_SITES else ""
+    return f'''<a class="division" href="{href}"{ext}><img class="tile" src="assets/logos/tile-{slug}.svg" alt="">
 <div><div class="name">{E(name)}</div><div class="role">Division</div><p>{E(desc)}</p>{p}</div></a>'''
 
 def product_card(k):
@@ -99,7 +101,7 @@ for name,slug,c,desc,prods in DIVISIONS:
     head, paras = LIVE_DIV[slug]
     prod_html = f'<div class="products-grid">{"".join(product_card(k) for k in prods)}</div>' if prods else ""
     divs.append(f'''<div class="div-section" id="{slug}"><div>
-<div class="mark"><img class="tile big" src="assets/logos/tile-{slug}.svg" alt=""><img class="divname" src="assets/logos/division-{slug}-black.svg" alt="{E(name)}"></div>
+<div class="mark">{'<a href="'+DIVISION_SITES[slug]+'" target="_blank" rel="noopener" aria-label="'+E(name)+' website">' if slug in DIVISION_SITES else ''}<img class="tile big" src="assets/logos/tile-{slug}.svg" alt=""><img class="divname" src="assets/logos/division-{slug}-black.svg" alt="{E(name)}">{'</a>' if slug in DIVISION_SITES else ''}</div>
 </div>
 <div><p class="label">Division</p><h2>{E(name)}</h2><p class="head">{E(head)}</p>{"".join(f"<p>{E(x)}</p>" for x in paras)}
 {('<p class="label" style="margin-top:26px">Current products</p>' + prod_html) if prods else ""}</div></div>''')
