@@ -70,7 +70,7 @@ def shell(title, body, current=None, desc="MeierWerks. Where the craft of work m
 def division_tile(d):
     name,slug,c,desc,prods = d
     if prods: p = '<div class="products">Current products: ' + " · ".join(E(PRODUCTS[k]["name"]) for k in prods) + '</div>'
-    else: p = '<div class="products tocome">Products to come</div>'
+    else: p = ""
     return f'''<a class="division" href="divisions.html#{slug}"><img class="tile" src="assets/logos/tile-{slug}.svg" alt="">
 <div><div class="name">{E(name)}</div><div class="role">Division</div><p>{E(desc)}</p>{p}</div></a>'''
 
@@ -97,12 +97,12 @@ home = f'''
 divs = []
 for name,slug,c,desc,prods in DIVISIONS:
     head, paras = LIVE_DIV[slug]
-    prod_html = f'<div class="products-grid">{"".join(product_card(k) for k in prods)}</div>' if prods else '<div class="tocome">Products to come</div>'
+    prod_html = f'<div class="products-grid">{"".join(product_card(k) for k in prods)}</div>' if prods else ""
     divs.append(f'''<div class="div-section" id="{slug}"><div>
 <div class="mark"><img class="tile big" src="assets/logos/tile-{slug}.svg" alt=""><img class="divname" src="assets/logos/division-{slug}-black.svg" alt="{E(name)}"></div>
 </div>
 <div><p class="label">Division</p><h2>{E(name)}</h2><p class="head">{E(head)}</p>{"".join(f"<p>{E(x)}</p>" for x in paras)}
-<p class="label" style="margin-top:26px">{"Current products" if prods else ""}</p>{prod_html}</div></div>''')
+{('<p class="label" style="margin-top:26px">Current products</p>' + prod_html) if prods else ""}</div></div>''')
 divisions = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Brand architecture</p><h1 style="font-size:clamp(40px,5.5vw,76px)">The operating structure</h1><hr class="rule"><p class="lead" style="margin-top:18px">Every product belongs to one division. Only software carries the WRKS endorsement.</p></div></section>
 <div class="wrap">{"".join(divs)}</div>'''
 # ---------- Principles ----------
