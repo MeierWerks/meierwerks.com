@@ -97,50 +97,42 @@ home = f'''
 <section class="band-black tight"><div class="wrap wrks"><img src="assets/logos/wrks-color.svg" alt="WRKS"><p><img class="pbw" src="assets/logos/powered-by-wrks-white.svg" alt="Powered by WRKS"><small>WRKS is MeierWerks’ proprietary software engine, deployed across every MW software solution.</small></p></div></section>
 '''
 # ---------- Divisions ----------
+def plain_tiles():
+    """tile-{slug}-plain.svg = the delivered tile with its accent band filled in the tile cream (start state of the wipe)"""
+    cream='rgb(95.53833%, 93.418884%, 89.089966%)'
+    for name,slug,c,desc,prods in DIVISIONS:
+        src=(SITE/"assets/logos"/f"tile-{slug}.svg").read_text()
+        (SITE/"assets/logos"/f"tile-{slug}-plain.svg").write_text(src.replace(f'fill="{c}"',f'fill="{cream}"',1))
+plain_tiles()
 divs = []
 for name,slug,c,desc,prods in DIVISIONS:
     head, paras = LIVE_DIV[slug]
     prod_html = f'<div class="products-grid">{"".join(product_card(k) for k in prods)}</div>' if prods else ""
     divs.append(f'''<div class="div-section" id="{slug}" data-slug="{slug}"><div>
-<div class="mark">{'<a href="'+DIVISION_SITES[slug]+'" target="_blank" rel="noopener" aria-label="'+E(name)+' website">' if slug in DIVISION_SITES else ''}<img class="tile big" src="assets/logos/tile-{slug}.svg" alt=""><canvas class="tile big reel-tile" width="264" height="264" data-color="{c}" aria-hidden="true"></canvas><img class="divname" src="assets/logos/division-{slug}-black.svg" alt="{E(name)}">{'</a>' if slug in DIVISION_SITES else ''}</div>
+<div class="mark">{'<a href="'+DIVISION_SITES[slug]+'" target="_blank" rel="noopener" aria-label="'+E(name)+' website">' if slug in DIVISION_SITES else ''}<img class="tile big" src="assets/logos/tile-{slug}.svg" alt=""><canvas class="tile big reel-tile" width="264" height="264" data-plain="assets/logos/tile-{slug}-plain.svg" aria-hidden="true"></canvas><img class="divname" src="assets/logos/division-{slug}-black.svg" alt="{E(name)}">{'</a>' if slug in DIVISION_SITES else ''}</div>
 </div>
 <div><p class="label">Division</p><h2>{E(name)}</h2><p class="head">{E(head)}</p>{"".join(f"<p>{E(x)}</p>" for x in paras)}
 {('<p class="label" style="margin-top:26px">Current products</p>' + prod_html) if prods else ""}</div></div>''')
 divisions = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Brand architecture</p><h1 style="font-size:clamp(40px,5.5vw,76px)">The operating structure</h1><hr class="rule"><p class="lead" style="margin-top:18px">Every product belongs to one division. Only software carries the WRKS endorsement.</p></div></section>
 <div class="wrap divs-list">{"".join(divs)}</div>
-<video id="ident-reel" class="reel-src" muted playsinline preload="auto" aria-hidden="true"><source src="assets/video/mw-ident-reel.mp4" type="video/mp4"></video>
 <script>
 (function(){{
-  var v=document.getElementById('ident-reel'); if(!v) return;
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;          // static SVG tiles stay
-  var WIPE=[0.80,1.20], TEAL=[19,88,104], N=264;   // the reel's plain→colour wipe (teal), recoloured per division
-  var tiles=Array.prototype.slice.call(document.querySelectorAll('canvas.reel-tile'));
-  var work=document.createElement('canvas'); work.width=work.height=N; var wx=work.getContext('2d',{{willReadFrequently:true}});
-  function hex(h){{ return [parseInt(h.substr(1,2),16),parseInt(h.substr(3,2),16),parseInt(h.substr(5,2),16)]; }}
-  function grab(){{ wx.drawImage(v,0,0,N,N); return wx.getImageData(0,0,N,N); }}
-  function recolor(img,target){{ var d=new Uint8ClampedArray(img.data); var dr=target[0]-TEAL[0],dg=target[1]-TEAL[1],db=target[2]-TEAL[2];
-    for(var i=0;i<d.length;i+=4){{ var r=d[i],g=d[i+1],bl=d[i+2]; var dist=Math.abs(r-TEAL[0])+Math.abs(g-TEAL[1])+Math.abs(bl-TEAL[2]); if(dist<150){{ var w=dist<40?1:1-(dist-40)/110; d[i]=r+dr*w; d[i+1]=g+dg*w; d[i+2]=bl+db*w; }} }}
-    return new ImageData(d,N,N); }}
-  var plain=null, cache={{}}, ready=false, busy=false, queued=null;
-  function seek(t){{ return new Promise(function(res){{ if(Math.abs(v.currentTime-t)<0.005){{ res(); return; }} v.addEventListener('seeked',function h(){{ v.removeEventListener('seeked',h); res(); }}); v.currentTime=t; }}); }}
-  function paint(tile,img){{ tile.getContext('2d').putImageData(img,0,0); }}
-  function show(tile){{ if(!tile.classList.contains('on')){{ tile.classList.add('on'); var im=tile.previousElementSibling; if(im&&im.tagName==='IMG') im.classList.add('hidden'); }} }}
-  function progress(tile){{ var r=tile.getBoundingClientRect(); var y=r.top+r.height/2, H=window.innerHeight; return (H*0.85-y)/(H*0.38); }}   // 0 as the mark enters from below, 1 by mid-screen
-  var state=tiles.map(function(){{ return -2; }});
-  async function update(){{ if(!ready){{ return; }} if(busy){{ queued=true; return; }} busy=true;
-    try{{
-      var live=null, liveP=0;
-      for(var i=0;i<tiles.length;i++){{ var p=Math.min(1,Math.max(0,progress(tiles[i]))); var key=p<=0?0:p>=1?1:p;
-        if(key===0||key===1){{ if(state[i]!==key){{ paint(tiles[i], key===0?plain:cache[tiles[i].dataset.color]); show(tiles[i]); state[i]=key; }} }}
-        else if(live===null||Math.abs(p-0.5)<Math.abs(liveP-0.5)){{ live=i; liveP=p; }} }}
-      if(live!==null){{ var t=WIPE[0]+liveP*(WIPE[1]-WIPE[0]); await seek(t); paint(tiles[live], recolor(grab(), hex(tiles[live].dataset.color))); show(tiles[live]); state[live]=liveP; }}
-    }} finally {{ busy=false; if(queued){{ queued=false; update(); }} }}
-  }}
-  async function init(){{ await seek(WIPE[0]); plain=grab(); await seek(WIPE[1]); var teal=grab();
-    tiles.forEach(function(tile){{ var c=tile.dataset.color; if(!cache[c]) cache[c]=recolor(teal,hex(c)); }});
-    ready=true; update(); }}
-  function onScroll(){{ update(); }}
-  if(v.readyState>=2) init(); else {{ v.addEventListener('loadeddata',init,{{once:true}}); v.load(); }}
+  var N=264, FEATHER=0.05, tiles=Array.prototype.slice.call(document.querySelectorAll('canvas.reel-tile'));
+  var off=document.createElement('canvas'); off.width=off.height=N; var ox=off.getContext('2d');
+  var items=tiles.map(function(cv){{ var img=cv.previousElementSibling; var plain=new Image(); plain.src=cv.dataset.plain; return {{cv:cv,ctx:cv.getContext('2d'),color:img,plain:plain,p:-1,ready:false}}; }});
+  function draw(it,p){{ var c=it.ctx; c.clearRect(0,0,N,N); c.drawImage(it.plain,0,0,N,N); if(p<=0) return;
+    ox.globalCompositeOperation='source-over'; ox.clearRect(0,0,N,N); ox.drawImage(it.color,0,0,N,N);
+    if(p<1){{ var g=ox.createLinearGradient(0,N,N,0); var a=Math.max(0,p-FEATHER); g.addColorStop(0,'rgba(0,0,0,1)'); g.addColorStop(a,'rgba(0,0,0,1)'); g.addColorStop(Math.min(1,p),'rgba(0,0,0,0)'); g.addColorStop(1,'rgba(0,0,0,0)');
+      ox.globalCompositeOperation='destination-in'; ox.fillStyle=g; ox.fillRect(0,0,N,N); ox.globalCompositeOperation='source-over'; }}
+    c.drawImage(off,0,0); }}
+  function progress(it){{ var r=it.cv.getBoundingClientRect(), H=window.innerHeight;
+    var atBottom=(window.innerHeight+window.scrollY)>=(document.documentElement.scrollHeight-2); if(atBottom) return 1;
+    return (H-r.bottom)/(H*0.33); }}                                   // 0 = mark just fully on screen at the bottom edge; 1 a third of the screen higher
+  var raf=null; function update(){{ raf=null; items.forEach(function(it){{ if(!it.ready) return; var p=Math.min(1,Math.max(0,progress(it))); if(Math.abs(p-it.p)<0.003) return; it.p=p; draw(it,p); }}); }}
+  function onScroll(){{ if(!raf) raf=requestAnimationFrame(update); }}
+  items.forEach(function(it){{ var n=0; function ok(){{ if(++n<2) return; it.ready=true; it.cv.classList.add('on'); it.color.classList.add('hidden'); it.p=-1; update(); }}
+    it.plain.addEventListener('load',ok,{{once:true}}); if(it.color.complete&&it.color.naturalWidth) ok(); else it.color.addEventListener('load',ok,{{once:true}}); }});
   window.addEventListener('scroll',onScroll,{{passive:true}}); window.addEventListener('resize',onScroll);
 }})();
 </script>'''
