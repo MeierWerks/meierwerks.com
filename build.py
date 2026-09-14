@@ -61,7 +61,7 @@ def shell(title, body, current=None, desc="MeierWerks. Where the craft of work m
 <main>{body}</main>
 <footer class="site-footer"><div class="wrap">
 <img src="assets/logos/mw-stamp+wordmark-white.svg" alt="MeierWerks">
-<div><ul>{"".join(f'<li><a href="{h}">{E(l)}</a></li>' for l,h in NAV)}<li><a href="privacy.html">Privacy</a></li></ul>
+<div><ul>{"".join(f'<li><a href="{h}">{E(l)}</a></li>' for l,h in NAV)}</ul>
 <p class="fine">Kent, CT USA &nbsp;·&nbsp; <a href="mailto:info@meierwerks.com">info@meierwerks.com</a> &nbsp;·&nbsp; (714) 440-5526</p></div>
 <div class="right">© MeierWerks Inc. All rights reserved.</div>
 </div></footer>
@@ -126,17 +126,9 @@ contact = '''<section><div class="wrap"><p class="eyebrow">MeierWerks</p><h1 sty
 <label>Subject<input id="subject" name="subject" type="text"></label>
 <label>Message<textarea id="message" name="message" rows="6" required></textarea></label>
 <button type="submit">Send</button></form></div></div></section>'''
-# ---------- Privacy (verbatim from live meierwerks.com/privacy) ----------
-lines = [l.strip() for l in (LIVE/"privacy.txt").read_text().splitlines() if l.strip()]
-out=[]; 
-for i,l in enumerate(lines):
-    if i==0: out.append(f'<h1 style="font-size:clamp(40px,5.5vw,76px)">{E(l)}</h1>')
-    elif re.match(r'^\d+\. [A-Z]', l): out.append(f'<h2>{E(l)}</h2>')
-    elif l.startswith(("Effective:","Last updated:")): out.append(f'<p class="meta">{E(l)}</p>')
-    else: out.append(f'<p>{E(l)}</p>')
-privacy = f'<section><div class="wrap legal">{"".join(out)}</div></section>'
+# Privacy page moved to MW Acoustics (owner of SDS) on 2026-09-14 at Bennett's request.
 
 pages = {"index.html":("MeierWerks",home,None),"divisions.html":("Divisions — MeierWerks",divisions,"divisions.html"),
  "principles.html":("Principles — MeierWerks",principles,"principles.html"),"team.html":("Team — MeierWerks",team,"team.html"),
- "contact.html":("Contact — MeierWerks",contact,"contact.html"),"privacy.html":("Privacy Policy — MeierWerks",privacy,None)}
+ "contact.html":("Contact — MeierWerks",contact,"contact.html")}
 for fn,(t,b,cur) in pages.items(): (SITE/fn).write_text(shell(t,b,cur)); print("built",fn)

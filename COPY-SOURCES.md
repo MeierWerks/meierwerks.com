@@ -20,3 +20,5 @@ Rule for this build: no new copy. Every sentence on the site comes from one of t
 
 Not used anywhere: Diane's MW Acoustics Website doc, Set List, Parts Express copy (all belong to the MW Acoustics site), Deck Copy (investment terms).
 Fonts: DIN Condensed Bold + Futura Medium load from the local Mac (Brand Guide p.14). Web licences (Adobe Fonts: DIN Condensed / Futura PT) are needed before public launch; Barlow Condensed + Jost are the Google-Fonts fallbacks.
+
+- 2026-09-14: Privacy Policy page REMOVED from meierwerks.com and moved to MW Acoustics (mwacoustic.com/privacy.html) — MW Acoustics owns SDS, so customers read the policy there. Bennett, chat, 2026-09-14.
