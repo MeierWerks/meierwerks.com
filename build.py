@@ -36,13 +36,73 @@ PRINCIPLES = [  # Brand Guide p.4
  ("Complexity should become clear","Engineering and intelligence should make sophisticated systems easier to use, not harder to understand."),
  ("The system must outlive the moment","Every mark, product and communication belongs to an architecture built to expand without losing itself."),
 ]
+# Technology page (Bennett 2026-09-14: "a technology tab so we can talk about all the different divisions'
+# technology, and a little bit more detail"). Every trademark and claim is lifted from the live division copy
+# (LIVE_DIV above); the per-technology sentences are that copy re-cut by technology — see COPY-SOURCES.md.
+# Photos: Pexels licence (free for commercial use, no attribution required), ids in COPY-SOURCES.md.
+TECH = [  # slug, lead, [(technology, what it is)], applications, photo alt
+ ("acoustics","Hardware and software that push the boundaries of what’s possible in Audio.",
+  [("Horn design","Innovative horn designs, developed for the Neo One and the MW Acoustics range."),
+   ("SONIFoRM™","Automated dispersion profile generation — the horn’s coverage pattern is generated, not hand-tuned."),
+   ("ISo–TL™","MW Acoustics’ transmission-line enclosure technology."),
+   ("SDS : Speaker Design Suite","Design software, powered by WRKS, that shows in real time how every choice affects cost, performance and the finished result.")],
+  "High End Home Audio, Consumer Electronics, Professional Audio, and beyond.",
+  "Close-up of a loudspeaker driver in a dark studio"),
+ ("magnetics","To reduce distortion in our speaker while keeping the source signal purely analog, we had to re-engineer how magnetic motor systems are built.",
+  [("FOCuS™ Hardware & Software","MW Magnetics’ motor-system technology: variable field-coil systems and high-energy permanent magnets with novel non-linear geometries."),
+   ("Variable field-coil systems","Electromagnet motors whose field can be varied — the basis of the Field Coil line."),
+   ("High-energy permanent magnets","Ferrite, alnico and neodymium magnets in novel non-linear geometries, leading to precision electromagnetic solutions.")],
+  "Beyond speakers: Energy Storage, Transportation, and Industrial Automation.",
+  "Magnetic field lines rendered around a core"),
+ ("composites","The high-strength, low weight, ultra-low resonance, and sustainable materials required for our speakers had not been invented. We needed to develop our own.",
+  [("THNSeT™ composite matrix","A process and formula that delivers greater strength, damping, and cost all while reducing weight, with no compromise in sustainability and scaleability."),
+   ("High-performance carbon fiber","Cutting-edge carbon-fiber composites for the most demanding applications."),
+   ("Thermoset / thermoplastic matrices","Matrix systems engineered for strength, damping and scale.")],
+  "Far beyond Audio: Aerospace, Automotive and Industrial applications.",
+  "Carbon fiber weave, close up"),
+ ("additive","No existing additive processes or materials could deliver the vibration-damping characteristics we needed for our speaker. So, we created it.",
+  [("FoAM™ Software","Automated additive infill profiles optimized for frequency and load — geometries generated automatically under variable constraints."),
+   ("Legacy-compatible","Works with existing advanced polymer and metal printing technologies, enabling stronger, lighter, and more precise components.")],
+  "Medical, Aerospace and communications.",
+  "Industrial 3D printer nozzle, dark setting"),
+ ("deeplearning","To improve efficiency and precision in our own processes, we had to develop AI tools and workflows that could design, optimize and scale our innovations.",
+  [("BRiDG™","AI-optimized manufacturing: an AI software hub leveraging LLM agents that augment existing manufacturing workflows and automate complex engineering challenges."),
+   ("MetaGraph","Connect, clarify and harness your AI tools, apps, information, data and correspondence in one engineered, adaptable and highly usable system."),
+   ("Legacy-compatible","Drives next-generation Industrial Automation while utilizing legacy digital manufacturing Hardware & Software.")],
+  "Manufacturing, engineering and Industrial Automation.",
+  "Abstract rendering of a neural network"),
+ ("heavy","Industrial Scale Solutions.",
+  [("Industrial engineering","Engineering for demanding physical applications, drawing on the group’s magnetics, composites and additive technologies.")],
+  "Energy, Transportation and Infrastructure.",
+  "Molten steel being poured in a mill"),
+]
+# Partners page (Bennett 2026-09-14). Organisations only, named as they name themselves; no third-party logos —
+# official badges (NVIDIA Inception, App Store) go in when Bennett supplies the files. Evidence per row in
+# COPY-SOURCES.md; rows marked confirm=True still need Bennett's wording.
+PARTNERS = [  # name, role, blurb, url
+ ("NVIDIA Inception","Program member",
+  "NVIDIA’s global program for AI startups. Membership supports MW Deep Learning with NVIDIA technology, training and go-to-market resources.",
+  "https://www.nvidia.com/en-us/startups/"),
+ ("FORGE","Startup community",
+  "A nonprofit that connects hardware startups with manufacturers and supply-chain partners across New England. MeierWerks is part of the FORGE startup community.",
+  "https://forgeimpact.org"),
+ ("Connecticut Innovations","Innovation partner",
+  "Connecticut’s strategic venture capital arm and innovation agency, supporting the state’s technology companies — including MeierWerks, a Connecticut-based manufacturer.",
+  "https://ctinnovations.com"),
+ ("Apple App Store","Published developer",
+  "SDS : Speaker Design Suite is published on the App Store for Mac, iPhone and iPad.",
+  "https://apps.apple.com/us/app/id6788087317"),
+ ("EMM Labs","Launch collaboration",
+  "The Neo One launch is supported by a collaboration with EMM Labs Inc., providing a full reference electronics system.",
+  "https://www.emmlabs.com"),
+]
 TEAM = [  # live meierwerks.com/team, verbatim
  ("Bennett Meier","team-bennett-meier.jpg","Bennett Meier is the founder and CEO of MeierWerks, a company redefining acoustics, deep learning, material science and manufacturing. With expertise in business management, manufacturing, and business strategy, Bennett has built MeierWerks into a vertically integrated/ United States based domestic manufacturer, developing class leading solutions in: Acoustics, Deep Learning, Additive Manufacturing, Composites, Magnetics and Heavy Industries. Under his leadership, the company is positioning itself as a global leader in post digital manufacturing and next-generation audio technology."),
  ("Roger Shively","team-roger-shively.jpg","Roger Shively brings nearly 40 years of expertise in acoustical engineering, product development, and advanced simulation. He previously served as Chief Engineer for Harman’s North American and Asian acoustic systems divisions. A Purdue alumnus, Roger was awarded the university’s 2022 Outstanding Alumni Award in Engineering Education. Roger is an active member of AES, ASA, SAE, and IEEE, and has published extensively on transducers, psychoacoustics, and computer modeling. Roger holds several patents and currently serves as Co-Chair of the AES Automotive Audio Technical Committee and Chair of the APDA’s Automotive Audio Education Pillar."),
  ("Diane Meier","team-diane-meier.jpg","Diane Meier is a branding expert with a proven track record in corporate direction, market expansion, and high-value brand positioning. As Principal of Meier Advertising, she has guided numerous companies toward growth, investment, and successful exits. Notably, she led the transformation of a disparate group of international factories into Sunworthy, the largest global luxury wall-covering brand, culminating in a $1 billion sale. Diane has advised leading brands across luxury retail, technology, and consumer goods, including Neiman Marcus, Balmain, Condé Nast, Blanc de Chine, and Chopard. Her expertise spans corporate strategy, brand storytelling, and scaling businesses from startup to unicorn status, making her a sought-after consultant for founders, executives, and investors."),
  ("Dr. Maximilian Heres","team-maximilian-heres.jpg","Dr. Maximilian Heres is an accomplished engineer and scientist specializing in advanced manufacturing, additive technologies, and automation. Holding an M.S. in Physics and a Ph.D. in Chemical Engineering from the University of Tennessee, Knoxville, he conducted doctoral research at Oak Ridge National Laboratory, focusing on molecular dynamics in polymers. He played a key role in developing the 3D-printed autonomous shuttle, Olli 2.0, at Local Motors, later co-founding Loci Robotics, Inc., where he designed large-format robotic 3D printers. As founder of Heres 3D, he has provided engineering consulting, prototyping, and manufacturing solutions. A hands-on engineer and automotive enthusiast, Maximilian combines expertise in composites, CNC machining, and digital fabrication to push the boundaries of high-tech manufacturing."),
 ]
-NAV = [("Divisions","divisions.html"),("Principles","principles.html"),("Team","team.html"),("Contact","contact.html")]
+NAV = [("Divisions","divisions.html"),("Technology","technology.html"),("Partners","partners.html"),("Vision","vision.html"),("Team","team.html"),("Contact","contact.html")]
 E = html.escape
 
 CSS_VER=hashlib.md5((SITE/"assets/styles.css").read_bytes()).hexdigest()[:8]
@@ -153,6 +213,23 @@ principles = f'''<section class="hero" style="padding-bottom:0"><div class="wrap
 <section class="band-teal"><div class="wrap"><p class="eyebrow">Mission</p><h2>Mission and proof</h2>
 <p class="lead" style="margin-top:22px">Using a proprietary method of agnostic pursuit, we aim to deliver B2B/B2C technology, engineered for superior performance, scalability, &amp; innovation across hardware, software, and manufacturing.</p>
 <p class="lead">Our first product is a truly remarkable speaker, blending analog and digital technology in ways that deliver extraordinary warmth with the efficiencies of new thinking, new materials, and new processes.</p></div></section>'''
+# ---------- Technology ----------
+DIV_BY_SLUG = {d[1]: d for d in DIVISIONS}
+def tech_section(t):
+    slug, lead, items, apps, alt = t
+    name = DIV_BY_SLUG[slug][0]
+    dl = "".join(f'<div><dt>{E(k)}</dt><dd>{E(v)}</dd></div>' for k,v in items)
+    return f'''<section class="tech" id="{slug}">
+<figure class="tech-photo"><img src="assets/img/tech/{slug}.jpg" alt="{E(alt)}" loading="lazy"></figure>
+<div class="tech-body"><p class="label">Division</p><h2><img class="divname" src="assets/logos/division-{slug}-black.svg" alt="{E(name)}"></h2>
+<p class="head">{E(lead)}</p><dl class="tech-items">{dl}</dl>
+<p class="label" style="margin-top:26px">Applications</p><p>{E(apps)}</p>
+<p class="more"><a href="divisions.html#{slug}">{E(name)} on the Divisions page →</a></p></div></section>'''
+technology = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Technology</p><h1 style="font-size:clamp(40px,5.5vw,76px)">The technology behind each division</h1><hr class="rule"><p class="lead" style="margin-top:18px">Each division exists because a technology our first product needed did not yet exist. We developed it — and each one reaches far beyond audio.</p></div></section>
+<div class="wrap tech-list">{"".join(tech_section(t) for t in TECH)}</div>'''
+# ---------- Partners ----------
+partners = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Partners</p><h1 style="font-size:clamp(40px,5.5vw,76px)">Partners and programs</h1><hr class="rule"><p class="lead" style="margin-top:18px">The programs, platforms and companies MeierWerks works with.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="partners">{"".join(f'<a class="partner" href="{u}" target="_blank" rel="noopener"><div class="pname-big">{E(n)}</div><div class="prole">{E(r)}</div><p>{E(b)}</p></a>' for n,r,b,u in PARTNERS)}</div></div></section>'''
 # ---------- Team ----------
 team = f'''<section><div class="wrap"><p class="eyebrow">MeierWerks</p><h1 style="font-size:clamp(40px,5.5vw,76px)">Meet the Team</h1><hr class="rule" style="margin-bottom:40px">
 <div class="team">{"".join(f'<div class="member"><div class="portrait"><img src="assets/img/{img}" alt="{E(n)}" loading="lazy"></div><div><h3>{E(n)}</h3><p>{E(b)}</p></div></div>' for n,img,b in TEAM)}</div></div></section>'''
@@ -168,6 +245,12 @@ contact = '''<section><div class="wrap"><p class="eyebrow">MeierWerks</p><h1 sty
 # Privacy page moved to MW Acoustics (owner of SDS) on 2026-09-14 at Bennett's request.
 
 pages = {"index.html":("MeierWerks",home,None),"divisions.html":("Divisions — MeierWerks",divisions,"divisions.html"),
- "principles.html":("Principles — MeierWerks",principles,"principles.html"),"team.html":("Team — MeierWerks",team,"team.html"),
+ "technology.html":("Technology — MeierWerks",technology,"technology.html"),
+ "partners.html":("Partners — MeierWerks",partners,"partners.html"),
+ "vision.html":("Vision — MeierWerks",principles,"vision.html"),"team.html":("Team — MeierWerks",team,"team.html"),
  "contact.html":("Contact — MeierWerks",contact,"contact.html")}
 for fn,(t,b,cur) in pages.items(): (SITE/fn).write_text(shell(t,b,cur)); print("built",fn)
+# "Principles" became "Vision" (Bennett 2026-09-14). The old URL was live and linked; keep it answering.
+(SITE/"principles.html").write_text('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Vision — MeierWerks</title>'
+ '<link rel="canonical" href="https://meierwerks.com/vision.html"><meta http-equiv="refresh" content="0; url=vision.html">'
+ '</head><body><p>This page moved to <a href="vision.html">Vision</a>.</p></body></html>'); print("built principles.html (redirect)")
