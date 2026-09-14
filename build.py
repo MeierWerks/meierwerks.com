@@ -118,22 +118,30 @@ divisions = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Bran
 <script>
 (function(){{
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;          // static SVG tiles stay
-  var N=264, FEATHER=0.05, tiles=Array.prototype.slice.call(document.querySelectorAll('canvas.reel-tile'));
+  var DPR=Math.min(3,window.devicePixelRatio||1), N=Math.round(132*DPR), FEATHER=0.05, EASE=0.22;
+  var tiles=Array.prototype.slice.call(document.querySelectorAll('canvas.reel-tile'));
+  function bitmap(img){{ var c=document.createElement('canvas'); c.width=c.height=N; c.getContext('2d').drawImage(img,0,0,N,N); return c; }}   // rasterise each SVG once
   var off=document.createElement('canvas'); off.width=off.height=N; var ox=off.getContext('2d');
-  var items=tiles.map(function(cv){{ var img=cv.previousElementSibling; var plain=new Image(); plain.src=cv.dataset.plain; return {{cv:cv,ctx:cv.getContext('2d'),color:img,plain:plain,p:-1,ready:false}}; }});
-  function draw(it,p){{ var c=it.ctx; c.clearRect(0,0,N,N); c.drawImage(it.plain,0,0,N,N); if(p<=0) return;
-    ox.globalCompositeOperation='source-over'; ox.clearRect(0,0,N,N); ox.drawImage(it.color,0,0,N,N);
+  var items=tiles.map(function(cv){{ cv.width=cv.height=N; var img=cv.previousElementSibling; var plain=new Image(); plain.src=cv.dataset.plain;
+    return {{cv:cv,ctx:cv.getContext('2d'),color:img,plain:plain,pb:null,cb:null,p:0,target:0,ready:false}}; }});
+  function draw(it,p){{ var c=it.ctx; c.clearRect(0,0,N,N); c.drawImage(it.pb,0,0); if(p<=0) return;
+    ox.globalCompositeOperation='source-over'; ox.clearRect(0,0,N,N); ox.drawImage(it.cb,0,0);
     if(p<1){{ var g=ox.createLinearGradient(0,N,N,0); var a=Math.max(0,p-FEATHER); g.addColorStop(0,'rgba(0,0,0,1)'); g.addColorStop(a,'rgba(0,0,0,1)'); g.addColorStop(Math.min(1,p),'rgba(0,0,0,0)'); g.addColorStop(1,'rgba(0,0,0,0)');
       ox.globalCompositeOperation='destination-in'; ox.fillStyle=g; ox.fillRect(0,0,N,N); ox.globalCompositeOperation='source-over'; }}
     c.drawImage(off,0,0); }}
   function progress(it){{ var r=it.cv.getBoundingClientRect(), H=window.innerHeight;
     var atBottom=(window.innerHeight+window.scrollY)>=(document.documentElement.scrollHeight-2); if(atBottom) return 1;
-    return (H-r.bottom)/(H*0.33); }}                                   // 0 = mark just fully on screen at the bottom edge; 1 a third of the screen higher
-  var raf=null; function update(){{ raf=null; items.forEach(function(it){{ if(!it.ready) return; var p=Math.min(1,Math.max(0,progress(it))); if(Math.abs(p-it.p)<0.003) return; it.p=p; draw(it,p); }}); }}
-  function onScroll(){{ if(!raf) raf=requestAnimationFrame(update); }}
-  items.forEach(function(it){{ var n=0; function ok(){{ if(++n<2) return; it.ready=true; it.cv.classList.add('on'); it.color.classList.add('hidden'); it.p=-1; update(); }}
+    return Math.min(1,Math.max(0,(H-r.bottom)/(H*0.33))); }}           // 0 = mark just fully on screen at the bottom edge; 1 a third of the screen higher
+  var raf=null;
+  function frame(){{ raf=null; var moving=false;
+    items.forEach(function(it){{ if(!it.ready) return; var d=it.target-it.p; if(Math.abs(d)<0.0015){{ if(it.p!==it.target){{ it.p=it.target; draw(it,it.p); }} return; }}
+      it.p+=d*EASE; draw(it,it.p); moving=true; }});
+    if(moving) raf=requestAnimationFrame(frame); }}
+  function retarget(){{ items.forEach(function(it){{ if(it.ready) it.target=progress(it); }}); if(!raf) raf=requestAnimationFrame(frame); }}
+  items.forEach(function(it){{ var n=0; function ok(){{ if(++n<2) return; it.pb=bitmap(it.plain); it.cb=bitmap(it.color); it.ready=true; it.p=it.target=progress(it); draw(it,it.p);
+      it.cv.classList.add('on'); it.color.classList.add('hidden'); }}
     it.plain.addEventListener('load',ok,{{once:true}}); if(it.color.complete&&it.color.naturalWidth) ok(); else it.color.addEventListener('load',ok,{{once:true}}); }});
-  window.addEventListener('scroll',onScroll,{{passive:true}}); window.addEventListener('resize',onScroll);
+  window.addEventListener('scroll',retarget,{{passive:true}}); window.addEventListener('resize',function(){{ retarget(); }});
 }})();
 </script>'''
 # ---------- Principles ----------
