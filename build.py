@@ -5,12 +5,12 @@ ROOT = pathlib.Path(__file__).parent; SITE = ROOT/"site"
 LIVE = pathlib.Path("/Users/meierwerksinc./Desktop/MeierWerks/business/website/_incoming-2026-09-14/live-site-text")
 
 DIVISIONS = [  # name, slug, colour, one-line descriptor (Brand Architecture sheet, Aug 2026), current products
- ("MW Acoustics","acoustics","#9D3F2C","Audio products, systems and design tools.",["neo-one","sds"]),
- ("MW Heavy","heavy","#0F492B","Engineering for demanding physical applications.",[]),
- ("MW Deep Learning","deeplearning","#D38912","AI-enabled products and intelligent systems.",["metagraph"]),
- ("MW Magnetics","magnetics","#145868","Magnetic technologies and applications.",[]),
+ ("MW Acoustics","acoustics","#0F492B","Audio products, systems and design tools.",["neo-one","sds"]),
+ ("MW Heavy","heavy","#D38912","Engineering for demanding physical applications.",[]),
+ ("MW Deep Learning","deeplearning","#80843E","AI-enabled products and intelligent systems.",["metagraph"]),
+ ("MW Magnetics","magnetics","#9D3F2C","Magnetic technologies and applications.",[]),
  ("MW Composites","composites","#9D8974","Advanced composite materials and systems.",[]),
- ("MW Additive","additive","#80843E","Additive design and manufacturing.",[]),
+ ("MW Additive","additive","#145868","Additive design and manufacturing.",[]),
 ]
 DIVISION_SITES = {"acoustics":"https://mwacoustic.com"}  # Bennett 2026-09-14: a division with a live site is clickable through to it
 PRODUCTS = {  # Brand Architecture sheet + Brand Guide p.11
