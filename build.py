@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Assemble meierwerks.com from verbatim copy. Every string in COPY traces to a source noted in COPY-SOURCES.md."""
-import html, pathlib, re
+import html, pathlib, hashlib, re
 ROOT = pathlib.Path(__file__).parent; SITE = ROOT/"site"
 LIVE = pathlib.Path("/Users/meierwerksinc./Desktop/MeierWerks/business/website/_incoming-2026-09-14/live-site-text")
 
@@ -45,6 +45,7 @@ TEAM = [  # live meierwerks.com/team, verbatim
 NAV = [("Divisions","divisions.html"),("Principles","principles.html"),("Team","team.html"),("Contact","contact.html")]
 E = html.escape
 
+CSS_VER=hashlib.md5((SITE/"assets/styles.css").read_bytes()).hexdigest()[:8]
 def shell(title, body, current=None, desc="MeierWerks. Where the craft of work meets advanced technology."):
     CUR=' aria-current="page"'
     nav = "".join(f'<li><a href="{h}"{CUR if h==current else ""}>{E(l)}</a></li>' for l,h in NAV)
@@ -53,7 +54,7 @@ def shell(title, body, current=None, desc="MeierWerks. Where the craft of work m
 <title>{E(title)}</title><meta name="description" content="{E(desc)}">
 <link rel="icon" href="assets/logos/mw-circle-black.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"><meta name="theme-color" content="#145868">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Jost:ital,wght@0,500;1,500&display=swap">
-<link rel="stylesheet" href="assets/styles.css"></head>
+<link rel="stylesheet" href="assets/styles.css?v={CSS_VER}"></head>
 <body>
 <header class="site-header"><div class="wrap">
 <a class="brand" href="index.html" aria-label="MeierWerks home"><img class="stamp" src="assets/logos/mw-stamp-white.svg" alt=""><img class="wordmark" src="assets/logos/wordmark-white.svg" alt="MeierWerks"></a>
@@ -96,8 +97,9 @@ home = f'''
 <section class="band-black tight"><div class="wrap wrks"><img src="assets/logos/wrks-color.svg" alt="WRKS"><p><img class="pbw" src="assets/logos/powered-by-wrks-white.svg" alt="Powered by WRKS"><small>WRKS is MeierWerks’ proprietary software engine, deployed across every MW software solution.</small></p></div></section>
 '''
 # ---------- Divisions ----------
+REEL_ORDER=["additive","acoustics","composites","magnetics","heavy","deeplearning"]  # the ident reel's own colour sequence; the Divisions page follows it so the reel scrubs linearly
 divs = []
-for name,slug,c,desc,prods in DIVISIONS:
+for name,slug,c,desc,prods in sorted(DIVISIONS,key=lambda d: REEL_ORDER.index(d[1])):
     head, paras = LIVE_DIV[slug]
     prod_html = f'<div class="products-grid">{"".join(product_card(k) for k in prods)}</div>' if prods else ""
     divs.append(f'''<div class="div-section" id="{slug}" data-slug="{slug}"><div>
@@ -113,27 +115,40 @@ divisions = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Bran
   var v=document.getElementById('ident-reel'), list=document.querySelector('.divs-list'), cv=document.getElementById('ident-reel-canvas'); if(!v||!list||!cv) return;
   var cx=cv.getContext('2d'); function draw(){{ try{{ cx.drawImage(v,0,0,cv.width,cv.height); }}catch(e){{}} }}
   v.addEventListener('seeked',draw); v.addEventListener('loadeddata',draw); v.addEventListener('timeupdate',draw);
-  var SEG={{additive:[0.85,1.7],acoustics:[1.7,2.5],composites:[2.5,3.5],magnetics:[3.45,4.3],heavy:[4.45,5.3],deeplearning:[5.3,7.1]}}, FINALE=[7.1,10.9];
+  var HOLD={{additive:1.4,acoustics:2.2,composites:3.0,magnetics:4.0,heavy:5.0,deeplearning:6.2}}, FINALE_END=10.9;
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce){{ v.loop=true; v.autoplay=true; v.play().catch(function(){{}}); (function loopDraw(){{ draw(); requestAnimationFrame(loopDraw); }})(); return; }}
-  var secs=Array.prototype.slice.call(list.querySelectorAll('.div-section')), active=null, cur=0, ready=false;
-  function seek(t){{ try{{ v.currentTime=t; }}catch(e){{}} }}
-  var seg=null, last=0, rafId=null, settleA=null, settleB=null;
-  function stop(){{ if(rafId){{ cancelAnimationFrame(rafId); rafId=null; }} clearTimeout(settleA); clearTimeout(settleB); }}
-  function frame(now){{ rafId=requestAnimationFrame(frame); if(!seg) return; var dt=Math.min(0.1,(now-last)/1000); last=now; cur=Math.min(seg[1],cur+dt); if(!v.seeking) seek(cur);
-    if(cur>=seg[1]){{ var end=seg[1]; stop(); seg=null; settleA=setTimeout(function(){{ seek(end); }},80); settleB=setTimeout(function(){{ if(Math.abs(v.currentTime-end)>0.01) seek(end); }},300); }} }}
-  function run(s){{ stop(); seg=s; cur=s[0]; seek(cur); last=performance.now(); rafId=requestAnimationFrame(frame); }}
-  function pick(){{ if(!ready) return; var mid=window.innerHeight*0.5, cur_=null;
-    for(var i=0;i<secs.length;i++){{ var r=secs[i].getBoundingClientRect(); if(r.top<=mid) cur_=secs[i]; }}
-    var lr=list.getBoundingClientRect(); var atEnd=(window.innerHeight+window.scrollY)>=(document.documentElement.scrollHeight-24); var finale = atEnd || lr.bottom <= window.innerHeight*0.6;
-    var key = finale ? 'finale' : (cur_ ? cur_.dataset.slug : 'top');
-    if(key===active) return; active=key;
-    if(key==='top'){{ stop(); seg=null; seek(0); return; }}
-    run(key==='finale' ? FINALE : SEG[key]);
+  var secs=Array.prototype.slice.call(list.querySelectorAll('.div-section')), ready=false, pending=null, applied=-1;
+  function seek(t){{ if(Math.abs(t-applied)<0.01) return; if(v.seeking){{ pending=t; return; }} applied=t; pending=null; try{{ v.currentTime=t; }}catch(e){{}} }}
+  v.addEventListener('seeked',function(){{ if(pending!==null){{ var p=pending; pending=null; applied=-1; seek(p); }} }});
+  function lerp(a,b,p){{ return a+(b-a)*Math.min(1,Math.max(0,p)); }}
+  function target(){{
+    var cr=cv.getBoundingClientRect(); var ref=window.scrollY+cr.top+cr.height/2;   // reference = the vertical midpoint of the reel graphic itself
+    var tops=secs.map(function(s){{ return s.getBoundingClientRect().top+window.scrollY; }});
+    var hs=secs.map(function(s){{ return s.getBoundingClientRect().height; }});
+    var Zmax=Math.max(120,Math.min(260,window.innerHeight*0.22));    // half-width of a boundary transition zone, shrunk for short sections
+    function zone(i){{ var h=Math.min(i>0?hs[i-1]:hs[0], hs[Math.min(i,hs.length-1)]); return Math.max(60,Math.min(Zmax,h*0.28)); }}
+    var Z=zone(0);
+    var holds=secs.map(function(s){{ return HOLD[s.dataset.slug]; }});
+    var last=secs[secs.length-1]; var lastBottom=last.getBoundingClientRect().bottom+window.scrollY;
+    var pageEnd=document.documentElement.scrollHeight;
+    // before the first section: plain mark → first colour across the first boundary
+    if(ref<tops[0]-Z) return 0;
+    if(ref<tops[0]+Z) return lerp(0,holds[0],(ref-(tops[0]-Z))/(2*Z));
+    for(var i=0;i<secs.length-1;i++){{
+      var b_=tops[i+1], Zi=zone(i+1);
+      if(ref<b_-Zi) return holds[i];
+      if(ref<b_+Zi) return lerp(holds[i],holds[i+1],(ref-(b_-Zi))/(2*Zi));
+    }}
+    // last section holds until its end; then the transformation scrubs to the page bottom
+    Z=zone(secs.length-1); var maxRef=(pageEnd-window.innerHeight)+cr.top+cr.height/2; var endStart=Math.min(lastBottom-Z, maxRef-window.innerHeight*0.35), endStop=maxRef; if(endStop<=endStart) endStop=endStart+1;
+    if(ref<endStart) return holds[holds.length-1];
+    return lerp(holds[holds.length-1],FINALE_END,(ref-endStart)/(endStop-endStart));
   }}
-  var t=null; function onScroll(){{ if(t) return; t=setTimeout(function(){{ t=null; pick(); }},50); }}
-  v.addEventListener('loadedmetadata',function(){{ ready=true; v.pause(); pick(); }},{{once:true}});
-  if(v.readyState>=1){{ ready=true; pick(); }} else v.load();
+  var raf=null; function update(){{ raf=null; if(!ready) return; seek(target()); }}
+  function onScroll(){{ if(!raf) raf=requestAnimationFrame(update); }}
+  v.addEventListener('loadedmetadata',function(){{ ready=true; v.pause(); update(); }},{{once:true}});
+  if(v.readyState>=1){{ ready=true; update(); }} else v.load();
   window.addEventListener('scroll',onScroll,{{passive:true}}); window.addEventListener('resize',onScroll);
 }})();
 </script>'''
