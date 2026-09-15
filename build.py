@@ -68,7 +68,7 @@ TECH = [  # slug, lead, [(technology, what it is)], applications, photo alt  —
    ("Sovereign, deployable, secure","Slicing that runs on any hardware — deployable on site, at the edge or in the field, with nothing leaving the customer’s control."),
    ("Legacy-compatible","Works with existing advanced polymer and metal printing technologies, enabling stronger, lighter, and more precise components.")],
   "Medical, aerospace and defense, communications and automotive.",
-  "Industrial 3D printer nozzle, dark setting"),
+  "U.S. Air Force airman loading a metal 3D printer"),
  ("deeplearning","To improve efficiency and precision in our own processes, we had to develop AI tools and workflows that could design, optimize and scale our innovations.",
   [("BRiDG™","AI-optimized manufacturing: an AI software hub leveraging LLM agents that augment existing manufacturing workflows and automate complex engineering challenges."),
    ("MetaGraph","Connect, clarify and harness your AI tools, apps, information, data and correspondence in one engineered, adaptable and highly usable system."),
