@@ -186,7 +186,7 @@ home = f'''
 <div class="divisions">{"".join(division_tile(d) for d in DIVISIONS)}</div></div></section>
 <section><div class="wrap"><p class="eyebrow">Foundation</p><h2>Four governing principles</h2><hr class="rule" style="margin-bottom:36px">
 <div class="principles">{"".join(f'<div class="principle"><div class="num">{i:02d}</div><div><h3>{E(t)}</h3><p>{E(b)}</p></div></div>' for i,(t,b) in enumerate(PRINCIPLES,1))}</div></div></section>
-<section class="band-black tight"><div class="wrap wrks"><p class="poweredby"><img class="pb-text" src="assets/logos/powered-by-white.svg" alt="Powered by"><img class="pb-logo" src="assets/logos/wrks-color.svg" alt="WRKS"></p><p class="wrks-caption">WRKS is a collection of proprietary physics and simulation engines, built into all of our software.</p></div></section>
+<section class="band-black tight"><div class="wrap wrks"><p class="poweredby"><img class="pb-text" src="assets/logos/powered-by-white.svg" alt="Powered by"><img class="pb-logo" src="assets/logos/wrks-color.svg" alt="WRKS"></p><p class="wrks-caption">WRKS is a collection of proprietary physics and simulation engines, built into our software and services.</p></div></section>
 '''
 # ---------- Divisions ----------
 def plain_tiles():
