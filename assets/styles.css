@@ -70,10 +70,10 @@ section.tight{padding-block:clamp(36px,5vw,64px)}
 .principle h3{font-size:26px;color:var(--teal);padding-bottom:10px;border-bottom:1px solid var(--rule);margin-bottom:12px}
 .principle p{margin:0;font-size:17px}
 /* WRKS strip */
-.wrks{display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4vw,64px);align-items:center}
-.wrks img{height:64px;width:auto}
-.wrks p{margin:0;font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(22px,2.6vw,34px);line-height:1;color:var(--warm-white);max-width:none}
-.wrks small{display:block;font-family:var(--body);font-weight:500;text-transform:none;font-size:18px;line-height:1.4;margin-top:8px;color:var(--warm-white);opacity:.9}
+.wrks{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center}
+.wrks > img{height:96px;width:auto;max-width:none}
+.wrks p{margin:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:10px;font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(22px,2.6vw,34px);line-height:1;color:var(--warm-white);max-width:none}
+.wrks small{display:block;font-family:var(--body);font-weight:500;text-transform:none;font-size:18px;line-height:1.35;margin:0;color:var(--warm-white);opacity:.9}
 /* division detail pages */
 .div-section{display:grid;grid-template-columns:5fr 7fr;gap:clamp(28px,5vw,72px);align-items:start;padding-block:clamp(48px,6vw,88px);border-top:1px solid var(--rule)}
 .div-section:first-of-type{border-top:0}
@@ -125,7 +125,9 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .site-footer .fine{font-size:14px;opacity:.8;margin:14px 0 0;max-width:none}
 .site-footer .fine a{font-family:var(--body);text-transform:none;letter-spacing:0;font-size:14px;font-weight:500;text-decoration:underline}
 .site-footer .right{text-align:right;font-size:14px;opacity:.8}
+@media (min-width:1100px){.wrks p{height:96px;gap:0}.wrks small{white-space:nowrap;line-height:1}}
 @media (max-width:900px){
+  .wrks{grid-template-columns:1fr;gap:18px}.wrks > img{height:72px}.wrks .pbw{height:30px}
   .hero .grid,.div-section,.contact,.team,.principles,.site-footer .wrap{grid-template-columns:1fr}
   .divisions{grid-template-columns:1fr 1fr}
   .site-footer .right{text-align:left}
@@ -143,7 +145,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .mark a{display:inline-flex;align-items:center;gap:inherit;text-decoration:none}
 .mark a:hover .divname{opacity:.75}
 
-.wrks .pbw{display:block;height:clamp(20px,2.2vw,30px);width:auto;margin-bottom:12px}
+.wrks .pbw{display:block;height:38px;width:auto;margin:0}
 
 
 
