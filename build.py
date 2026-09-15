@@ -68,7 +68,7 @@ TECH = [  # slug, lead, [(technology, what it is)], applications, photo alt  —
    ("Sovereign, deployable, secure","Slicing that runs on any hardware — deployable on site, at the edge or in the field, with nothing leaving the customer’s control."),
    ("Legacy-compatible","Works with existing advanced polymer and metal printing technologies, enabling stronger, lighter, and more precise components.")],
   "Medical, aerospace and defense, communications and automotive.",
-  "U.S. Air Force airman loading a metal 3D printer"),
+  "A U.S. Marine holds a freshly 3D-printed part on its build plate"),
  ("deeplearning","To improve efficiency and precision in our own processes, we had to develop AI tools and workflows that could design, optimize and scale our innovations.",
   [("BRiDG™","AI-optimized manufacturing: an AI software hub leveraging LLM agents that augment existing manufacturing workflows and automate complex engineering challenges."),
    ("MetaGraph","Connect, clarify and harness your AI tools, apps, information, data and correspondence in one engineered, adaptable and highly usable system."),
@@ -165,7 +165,7 @@ def product_card(k):
 
 # ---------- Home ----------
 home = f'''
-<section class="hero"><div class="wrap"><p class="eyebrow">Foundation</p>
+<section class="hero hero-film"><video class="hero-bg" autoplay muted loop playsinline preload="metadata" poster="assets/img/hero-poster.jpg" aria-hidden="true" tabindex="-1"><source src="assets/video/evening-mist.mp4" type="video/mp4"></video><div class="hero-scrim" aria-hidden="true"></div><div class="wrap"><p class="eyebrow">Foundation</p>
 <div class="grid"><h1>Where the craft of work meets advanced technology.</h1>
 <div class="statement"><p>MeierWerks creates products and systems by joining analog judgment and material intelligence with skilled workmanship and the most advanced technologies.</p><p>Technology is not the identity. It is a tool in service of more thoughtful, useful and beautiful work.</p></div></div></div></section>
 <section class="band-teal"><div class="wrap"><p class="eyebrow">Brand architecture</p>

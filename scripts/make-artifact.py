@@ -7,7 +7,7 @@ from PIL import Image
 root = Path(sys.argv[1] if len(sys.argv) > 1 else ".").resolve()
 site, art = root / "site", root / "artifact"
 if art.exists(): shutil.rmtree(art)
-shutil.copytree(site, art, ignore=shutil.ignore_patterns("CNAME", ".DS_Store", "*.mp4"))
+shutil.copytree(site, art, ignore=shutil.ignore_patterns("CNAME", ".DS_Store"))
 renamed = {}
 for p in sorted(art.rglob("*.png")):
     if p.stat().st_size > 250_000 and "favicon" not in p.name and "icon-" not in p.name and "apple-touch" not in p.name:
