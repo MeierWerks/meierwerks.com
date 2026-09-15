@@ -42,7 +42,7 @@ PRINCIPLES = [  # Brand Guide p.4
 # Photos: Pexels licence (free for commercial use, no attribution required), ids in COPY-SOURCES.md.
 TECH = [  # slug, lead, [(technology, what it is)], applications, photo alt  — Technology copy per Bennett, chat 2026-09-15 (see COPY-SOURCES.md)
  ("acoustics","MW Acoustics is where the group’s technology meets the listener — every division’s work, applied to consumer products you can hear.",
-  [("Magnetic motor systems","Drivers built on MW Magnetics’ motor work: high-energy neodymium, alnico and ferrite topologies and variable field-coil motors — the basis of the Neo, Ferrite, Alnico and Field Coil lines."),
+  [("Magnet topologies","Each MW Acoustics line is defined by its magnet system — neodymium, ferrite, alnico and field coil. The Neo line launches on proven motors from an established driver manufacturer, with MW Magnetics’ motor research informing the lines that follow."),
    ("Acoustic lens and horn","The acoustic lens and compression horn were redesigned with the group’s finite-element, CFD and deep-learning simulation tools, then cut from solid aluminum on MW Heavy’s CNC machines."),
    ("Nested transmission line","Advanced simulation let us nest two cabinets inside each other: a cylindrical transmission line that outperforms the rectangular and square lines of the competition."),
    ("Additive and composite structures","Cabinet structures generated with MW Additive’s software; carbon-fiber diaphragms and constrained-layer damping from MW Composites."),
