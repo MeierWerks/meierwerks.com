@@ -88,7 +88,7 @@ TECH = [  # slug, lead, [(technology, what it is)], applications, photo alt  —
 # official badges (NVIDIA Inception, App Store) go in when Bennett supplies the files. Evidence per row in
 # COPY-SOURCES.md; rows marked confirm=True still need Bennett's wording.
 PARTNER_LOGOS = {  # official marks (see COPY-SOURCES.md): file, show-name-beside-mark
- "NVIDIA Inception":("partners/nvidia.png",False), "FORGE":("partners/forge.png",False),
+ "NVIDIA Inception":("partners/nvidia-inception.png",False), "FORGE":("partners/forge.png",False),
  "Connecticut Innovations":("partners/ct-innovations-mark.svg",True), "Apple App Store":("partners/app-store-badge.svg",False)}
 def partner_card(n,r,b,u):
     logo,showname=PARTNER_LOGOS.get(n,(None,True))

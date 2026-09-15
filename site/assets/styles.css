@@ -172,6 +172,7 @@ canvas.reel-tile.on{display:block}
 .partner:hover{transform:translateY(-2px)}
 .partner .pname-big{font-family:var(--display);font-weight:700;font-size:34px;line-height:1;text-transform:uppercase}
 .partner .plogo{display:block;height:46px;width:auto;max-width:100%;object-fit:contain;object-position:left center;margin-bottom:14px}
+.partner .plogo[src*="inception"]{height:72px}
 .partner .plogo-row{display:flex;align-items:center;gap:14px;margin-bottom:10px}
 .partner .plogo-row .plogo.mark{height:52px;margin-bottom:0}
 .partner .plogo-row .pname-big{font-size:26px;line-height:1.05}
