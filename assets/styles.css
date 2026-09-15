@@ -74,10 +74,11 @@ section.tight{padding-block:clamp(36px,5vw,64px)}
 .principle h3{font-size:26px;color:var(--teal);padding-bottom:10px;border-bottom:1px solid var(--rule);margin-bottom:12px}
 .principle p{margin:0;font-size:17px}
 /* WRKS strip */
-.wrks{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center}
-.wrks > img{height:96px;width:auto;max-width:none}
-.wrks p{margin:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:10px;font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(22px,2.6vw,34px);line-height:1;color:var(--warm-white);max-width:none}
-.wrks small{display:block;font-family:var(--body);font-weight:500;text-transform:none;font-size:18px;line-height:1.35;margin:0;color:var(--warm-white);opacity:.9}
+.poweredby{display:inline-flex;align-items:center;gap:.28em;font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.005em;line-height:1;margin:0}
+.poweredby span{white-space:nowrap}
+.poweredby img{flex:none;height:1.15em;width:auto;display:block;position:relative;top:.02em}
+.wrks .poweredby{font-size:clamp(34px,4.6vw,66px);color:var(--warm-white)}
+.wrks .wrks-caption{font-family:var(--body);font-weight:500;font-size:18px;line-height:1.4;margin:16px 0 0;color:var(--warm-white);opacity:.9;max-width:62ch}
 /* division detail pages */
 .div-section{display:grid;grid-template-columns:5fr 7fr;gap:clamp(28px,5vw,72px);align-items:start;padding-block:clamp(48px,6vw,88px);border-top:1px solid var(--rule)}
 .div-section:first-of-type{border-top:0}
@@ -97,7 +98,7 @@ a.product:hover,a.product:focus-visible{transform:translateY(-2px);box-shadow:0 
 .product .pname{font-family:var(--names);font-weight:900;font-size:18px;letter-spacing:.04em;text-transform:uppercase;color:var(--black)}
 .product .ptag{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:13px;color:var(--teal);margin:4px 0 8px}
 .product p{font-size:15px;margin:0 0 8px}
-.product .pow{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:12px;color:var(--cinnabar)}
+.product .pow{font-size:13px;color:var(--cinnabar);letter-spacing:.06em;margin-top:6px}
 .tocome{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:14px;color:var(--muted);margin-top:16px}
 /* team */
 .team{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(28px,4vw,56px)}
@@ -133,9 +134,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .site-footer .fine{font-size:14px;opacity:.8;margin:14px 0 0;max-width:none}
 .site-footer .fine a{font-family:var(--body);text-transform:none;letter-spacing:0;font-size:14px;font-weight:500;text-decoration:underline}
 .site-footer .right{text-align:right;font-size:14px;opacity:.8}
-@media (min-width:1100px){.wrks p{height:96px;gap:0}.wrks small{white-space:nowrap;line-height:1}}
 @media (max-width:900px){
-  .wrks{grid-template-columns:1fr;gap:18px}.wrks > img{height:72px}.wrks .pbw{height:30px}
   .hero .grid,.div-section,.contact,.team,.principles,.site-footer .wrap{grid-template-columns:1fr}
   .divisions{grid-template-columns:1fr 1fr}
   .site-footer .right{text-align:left}
@@ -153,7 +152,6 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .mark a{display:inline-flex;align-items:center;gap:inherit;text-decoration:none}
 .mark a:hover .divname{opacity:.75}
 
-.wrks .pbw{display:block;height:38px;width:auto;margin:0}
 
 
 
