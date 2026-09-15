@@ -47,7 +47,7 @@ TECH = [  # slug, lead, [(technology, what it is)], applications, photo alt
    ("ISo–TL™","MW Acoustics’ transmission-line enclosure technology."),
    ("SDS : Speaker Design Suite","Design software, powered by WRKS, that shows in real time how every choice affects cost, performance and the finished result.")],
   "High End Home Audio, Consumer Electronics, Professional Audio, and beyond.",
-  "Close-up of a loudspeaker driver in a dark studio"),
+  "Neo One compression horn, close up"),
  ("magnetics","To reduce distortion in our speaker while keeping the source signal purely analog, we had to re-engineer how magnetic motor systems are built.",
   [("FOCuS™ Hardware & Software","MW Magnetics’ motor-system technology: variable field-coil systems and high-energy permanent magnets with novel non-linear geometries."),
    ("Variable field-coil systems","Electromagnet motors whose field can be varied — the basis of the Field Coil line."),
