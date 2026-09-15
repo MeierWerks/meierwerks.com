@@ -18,5 +18,10 @@ for h in art.rglob("*.html"):
     s = re.sub(r"^\s*<!DOCTYPE[^>]*>\s*", "", s, flags=re.I)
     s = re.sub(r"<html[^>]*>|</html>|<head>|</head>|<body[^>]*>|</body>|<meta charset=\"utf-8\">|<meta name=\"viewport\"[^>]*>", "", s, flags=re.I)
     for a, b in renamed.items(): s = s.replace(a, b)
+    # the Artifact host serves files by name, so restore relative .html links there
+    pages = {q.stem for q in art.glob("*.html")}
+    s = re.sub(r'href="/(#[^"]*)?"', lambda m: 'href="index.html%s"' % (m.group(1) or ""), s)
+    s = re.sub(r'href="/([a-z0-9-]+)(#[^"]*)?"', lambda m: ('href="%s.html%s"' % (m.group(1), m.group(2) or "")) if m.group(1) in pages else m.group(0), s)
+    s = re.sub(r'url=/([a-z0-9-]+)"', lambda m: 'url=%s.html"' % m.group(1), s)
     h.write_text(s.strip() + "\n")
 print(f"artifact/: {sum(1 for _ in art.rglob('*.html'))} pages, {len(renamed)} png→jpg")
