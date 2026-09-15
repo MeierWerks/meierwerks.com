@@ -3,7 +3,7 @@ Rule for this build: no new copy. Every sentence on the site comes from one of t
 
 | Page / element | Source |
 |---|---|
-| Positioning line "Where the hand of craft meets the precision of technology." (hero + meta description) | Bennett, chat 2026-09-15: rejected the Brand Guide p.3 line "Where the craft of work meets advanced technology." as weak and asked for "where the talent of craft meets the precision of technology, or something like that"; this is the tightened form. Alternates offered: "Where craft meets precision." / "Human craft. Machine precision." / "Made by hand. Perfected by technology." |
+| Positioning line "Where the art of craft meets the precision of technology." (hero + Vision + meta description) | Bennett, chat 2026-09-15: rejected the Brand Guide p.3 line as weak, rejected "hand of craft", offered "art of craft" / "skill of craft". |
 | Foundation statement (two paragraphs) | Brand Guide p.3 |
 | "One ownership brand. Distinct divisions. Products with a clear home." | Brand Guide p.5 |
 | "Every product belongs to one division. Only software carries the WRKS endorsement." | Brand Guide p.6 rule; Architecture sheet |
