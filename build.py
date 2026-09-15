@@ -12,7 +12,8 @@ DIVISIONS = [  # name, slug, colour, one-line descriptor (Brand Architecture she
  ("MW Composites","composites","#9D8974","Advanced composite materials and systems.",[]),
  ("MW Additive","additive","#145868","Additive design and manufacturing.",[]),
 ]
-DIVISION_SITES = {"acoustics":"https://mwacoustic.com"}  # Bennett 2026-09-14: a division with a live site is clickable through to it
+DIVISION_SITES = {"acoustics":"https://mwacoustic.com"}
+PRODUCT_URLS = {"neo-one":"https://mwacoustic.com/products.html#neo-one","sds":"https://mwacoustic.com/software.html"}  # Bennett 2026-09-15: product names click through to the product on the division site  # Bennett 2026-09-14: a division with a live site is clickable through to it
 PRODUCTS = {  # Brand Architecture sheet + Brand Guide p.11
  "neo-one": dict(name="NEO • ONE", tag="Premier floor-standing speaker", mark="neo-one-mark.svg", pow=False,
    blurb="A floor-standing speaker of exceptional quality and beauty, created through an agnostic approach to design and engineering—drawing from traditional analogue craft and advanced digital technologies wherever each best serves the sound. The result is outstanding acoustics, distinctive beauty and a singularly expressive listening experience."),
@@ -145,17 +146,22 @@ def shell(title, body, current=None, desc="MeierWerks. Where the craft of work m
 
 def division_tile(d):
     name,slug,c,desc,prods = d
-    if prods: p = '<div class="products">Current products: ' + " · ".join(E(PRODUCTS[k]["name"]) for k in prods) + '</div>'
+    def pname(k):
+        n=E(PRODUCTS[k]["name"]); u=PRODUCT_URLS.get(k)
+        return f'<a class="plink" href="{u}" target="_blank" rel="noopener">{n}</a>' if u else n
+    if prods: p = '<div class="products">Current products: ' + " · ".join(pname(k) for k in prods) + '</div>'
     else: p = ""
     href=DIVISION_SITES.get(slug,f"divisions.html#{slug}"); ext=' target="_blank" rel="noopener"' if slug in DIVISION_SITES else ""
-    return f'''<a class="division" href="{href}"{ext}><img class="tile" src="assets/logos/tile-{slug}.svg" alt="">
-<div><div class="name">{E(name)}</div><div class="role">Division</div><p>{E(desc)}</p>{p}</div></a>'''
+    return f'''<div class="division"><a class="division-link" href="{href}"{ext} aria-label="{E(name)}"></a><img class="tile" src="assets/logos/tile-{slug}.svg" alt="">
+<div><div class="name">{E(name)}</div><div class="role">Division</div><p>{E(desc)}</p>{p}</div></div>'''
 
 def product_card(k):
     p = PRODUCTS[k]
     img = f'<img src="assets/logos/{p["mark"]}" alt="">' if p["mark"] else ""
     pow_ = '<div class="pow">Powered by WRKS</div>' if p["pow"] else ""
-    return f'<div class="product">{img}<div class="pname">{E(p["name"])}</div><div class="ptag">{E(p["tag"])}</div><p>{E(p["blurb"])}</p>{pow_}</div>'
+    inner = f'{img}<div class="pname">{E(p["name"])}</div><div class="ptag">{E(p["tag"])}</div><p>{E(p["blurb"])}</p>{pow_}'
+    u = PRODUCT_URLS.get(k)
+    return f'<a class="product" href="{u}" target="_blank" rel="noopener">{inner}<div class="pgo">View {E(p["name"])} →</div></a>' if u else f'<div class="product">{inner}</div>'
 
 # ---------- Home ----------
 home = f'''
@@ -232,7 +238,9 @@ DIV_BY_SLUG = {d[1]: d for d in DIVISIONS}
 def tech_section(t):
     slug, lead, items, apps, alt = t
     name = DIV_BY_SLUG[slug][0]
-    dl = "".join(f'<div><dt>{E(k)}</dt><dd>{E(v)}</dd></div>' for k,v in items)
+    TECH_LINKS = {"SDS : Speaker Design Suite": PRODUCT_URLS["sds"]}
+    def dt(k): u=TECH_LINKS.get(k); return f'<a href="{u}" target="_blank" rel="noopener">{E(k)}</a>' if u else E(k)
+    dl = "".join(f'<div><dt>{dt(k)}</dt><dd>{E(v)}</dd></div>' for k,v in items)
     return f'''<section class="tech" id="{slug}">
 <figure class="tech-photo"><img src="assets/img/tech/{slug}.jpg" alt="{E(alt)}" loading="lazy"></figure>
 <div class="tech-body"><p class="label">Division</p><h2><img class="divname" src="assets/logos/division-{slug}-black.svg" alt="{E(name)}"></h2>
