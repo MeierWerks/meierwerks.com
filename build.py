@@ -133,7 +133,7 @@ def clean_urls(html, fn, domain="meierwerks.com"):
         html = re.sub(r'(</title>)', r'\1' + canon, html, count=1)
     return html
 
-def shell(title, body, current=None, desc="MeierWerks. Where the art of craft meets the precision of technology."):
+def shell(title, body, current=None, desc="MeierWerks. Where the skill of craft meets the precision of technology."):
     CUR=' aria-current="page"'
     nav = "".join(f'<li><a href="{h}"{CUR if h==current else ""}>{E(l)}</a></li>' for l,h in NAV)
     return f'''<!DOCTYPE html>
@@ -178,7 +178,7 @@ def product_card(k):
 # ---------- Home ----------
 home = f'''
 <section class="hero hero-film"><video class="hero-bg" autoplay muted loop playsinline preload="metadata" poster="assets/img/hero-poster.jpg" aria-hidden="true" tabindex="-1"><source src="assets/video/evening-mist.mp4" type="video/mp4"></video><div class="hero-scrim" aria-hidden="true"></div><div class="wrap"><p class="eyebrow">Foundation</p>
-<div class="grid"><h1>Where the art of craft meets the precision of technology.</h1>
+<div class="grid"><h1>Where the skill of craft meets the precision of technology.</h1>
 <div class="statement"><p>MeierWerks creates products and systems by joining analog judgment and material intelligence with skilled workmanship and the most advanced technologies.</p><p>Technology is not the identity. It is a tool in service of more thoughtful, useful and beautiful work.</p></div></div></div></section>
 <section class="band-teal"><div class="wrap"><p class="eyebrow">Brand architecture</p>
 <h2>One ownership brand. Distinct divisions. Products with a clear home.</h2>
@@ -238,7 +238,7 @@ divisions = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Bran
 </script>'''
 # ---------- Principles ----------
 principles = f'''<section class="hero" style="padding-bottom:0"><div class="wrap"><p class="eyebrow">Foundation</p>
-<div class="grid"><h1>Where the art of craft meets the precision of technology.</h1>
+<div class="grid"><h1>Where the skill of craft meets the precision of technology.</h1>
 <div class="statement"><p>MeierWerks creates products and systems by joining analog judgment and material intelligence with skilled workmanship and the most advanced technologies.</p><p>Technology is not the identity. It is a tool in service of more thoughtful, useful and beautiful work.</p></div></div></div></section>
 <section><div class="wrap"><h2>Four governing principles</h2><hr class="rule" style="margin-bottom:36px">
 <div class="principles">{"".join(f'<div class="principle"><div class="num">{i:02d}</div><div><h3>{E(t)}</h3><p>{E(b)}</p></div></div>' for i,(t,b) in enumerate(PRINCIPLES,1))}</div></div></section>

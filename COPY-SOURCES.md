@@ -3,7 +3,7 @@ Rule for this build: no new copy. Every sentence on the site comes from one of t
 
 | Page / element | Source |
 |---|---|
-| Positioning line "Where the art of craft meets the precision of technology." (hero + Vision + meta description) | Bennett, chat 2026-09-15: rejected the Brand Guide p.3 line as weak, rejected "hand of craft", offered "art of craft" / "skill of craft". |
+| Positioning line "Where the skill of craft meets the precision of technology." (hero + Vision + meta description) | Bennett, chat 2026-09-15: rejected the Brand Guide p.3 line as weak and "hand of craft"; chose "skill" over "art". |
 | Foundation statement (two paragraphs) | Brand Guide p.3 |
 | "One ownership brand. Distinct divisions. Products with a clear home." | Brand Guide p.5 |
 | "Every product belongs to one division. Only software carries the WRKS endorsement." | Brand Guide p.6 rule; Architecture sheet |
