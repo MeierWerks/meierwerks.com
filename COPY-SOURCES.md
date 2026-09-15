@@ -10,7 +10,7 @@ Rule for this build: no new copy. Every sentence on the site comes from one of t
 | Division one-line descriptors (six) | Brand Architecture sheet, sections 3–4 |
 | Division colours | Brand Guide p.10 |
 | Four governing principles (titles + text) | Brand Guide p.4 |
-| WRKS strip: "Powered by WRKS." + "WRKS is MeierWerks' proprietary software engine, deployed across every MW software solution." | Bennett, in chat 2026-09-14 (replaced the Architecture-sheet wording at his request) |
+| WRKS strip: "Powered by WRKS." lockup + "WRKS is a collection of proprietary physics and simulation engines, built into all of our software." | Bennett, in chat 2026-09-15 ("WRKS is a collection of proprietary physics and simulation engines, made available in all softwares that we offer" — second half tightened at his request); supersedes the 2026-09-14 wording |
 | Division headlines + paragraphs (FOCuS, SONIFoRM, THNSeT, FoAM, BRiDG, ISo-TL) | live meierwerks.com/divisions, verbatim |
 | NEO • ONE / SDS / MetaGraph names, taglines, blurbs, "Powered by WRKS" | Brand Guide p.11 + Brand Architecture sheet, section 3 |
 | Mission and proof (Principles page, teal band) | Diane, "For Bennett's deck. Proposal - Mission.docx" (Aug 2026) — written for the deck; easy to remove |
@@ -46,3 +46,5 @@ Fonts: DIN Condensed Bold + Futura Medium load from the local Mac (Brand Guide p
 - **Partners page** (`PARTNERS`): NVIDIA Inception — member mail from inceptionprogram@nvidia.com / "Exclusive for Inception Members" (Aug 2026). FORGE — member mail from accounts@forgeimpact.org addressed to the "FORGE Startup Community" (May–Sep 2026). Connecticut Innovations — Bennett's statement in chat; NO mail/kit record found — CONFIRM wording. Apple App Store — apps.apple.com/us/app/id6788087317 (SDS / Speaker Design Suite, seller MW-Acoustics Inc.). EMM Labs — MW-Business Deck-2.pdf p.8, verbatim sentence. No third-party logos used.
 
 - 2026-09-14: EMM Labs removed from the Partners page at Bennett's request.
+- 2026-09-15: Partners page cards carry official marks instead of text — NVIDIA horizontal logo (nvidia.com brand assets, used as a program member), FORGE logo (forgeimpact.org site header), Connecticut Innovations circular mark (ctinnovations.com header SVG; wordmark set in site type because no wordmark file was available), Apple "Download on the App Store" badge (tools.applemediaservices.com, Apple marketing guidelines). Files in site/assets/logos/partners/. Bennett, chat.
+- 2026-09-15: powered-by-wrks lockup SVGs cropped to ink (viewBox 7.03 4.05 103.2 12.89) so the lockup sits flush left with the copy beneath it. Bennett, chat.

@@ -79,6 +79,15 @@ TECH = [  # slug, lead, [(technology, what it is)], applications, photo alt
 # Partners page (Bennett 2026-09-14). Organisations only, named as they name themselves; no third-party logos —
 # official badges (NVIDIA Inception, App Store) go in when Bennett supplies the files. Evidence per row in
 # COPY-SOURCES.md; rows marked confirm=True still need Bennett's wording.
+PARTNER_LOGOS = {  # official marks (see COPY-SOURCES.md): file, show-name-beside-mark
+ "NVIDIA Inception":("partners/nvidia.png",False), "FORGE":("partners/forge.png",False),
+ "Connecticut Innovations":("partners/ct-innovations-mark.svg",True), "Apple App Store":("partners/app-store-badge.svg",False)}
+def partner_card(n,r,b,u):
+    logo,showname=PARTNER_LOGOS.get(n,(None,True))
+    if logo and showname: head=f'<div class="plogo-row"><img class="plogo mark" src="assets/logos/{logo}" alt=""><div class="pname-big">{E(n)}</div></div>'
+    elif logo: head=f'<img class="plogo" src="assets/logos/{logo}" alt="{E(n)}">'
+    else: head=f'<div class="pname-big">{E(n)}</div>'
+    return f'<a class="partner" href="{u}" target="_blank" rel="noopener">{head}<div class="prole">{E(r)}</div><p>{E(b)}</p></a>'
 PARTNERS = [  # name, role, blurb, url
  ("NVIDIA Inception","Program member",
   "NVIDIA’s global program for AI startups. Membership supports MW Deep Learning with NVIDIA technology, training and go-to-market resources.",
@@ -151,7 +160,7 @@ home = f'''
 <div class="divisions">{"".join(division_tile(d) for d in DIVISIONS)}</div></div></section>
 <section><div class="wrap"><p class="eyebrow">Foundation</p><h2>Four governing principles</h2><hr class="rule" style="margin-bottom:36px">
 <div class="principles">{"".join(f'<div class="principle"><div class="num">{i:02d}</div><div><h3>{E(t)}</h3><p>{E(b)}</p></div></div>' for i,(t,b) in enumerate(PRINCIPLES,1))}</div></div></section>
-<section class="band-black tight"><div class="wrap wrks"><img src="assets/logos/wrks-color.svg" alt="WRKS"><p><img class="pbw" src="assets/logos/powered-by-wrks-white.svg" alt="Powered by WRKS"><small>WRKS is MeierWerks’ proprietary software engine, deployed across every MW software solution.</small></p></div></section>
+<section class="band-black tight"><div class="wrap wrks"><img src="assets/logos/wrks-color.svg" alt="WRKS"><p><img class="pbw" src="assets/logos/powered-by-wrks-white.svg" alt="Powered by WRKS"><small>WRKS is a collection of proprietary physics and simulation engines, built into all of our software.</small></p></div></section>
 '''
 # ---------- Divisions ----------
 def plain_tiles():
@@ -226,7 +235,7 @@ technology = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Tec
 <div class="wrap tech-list">{"".join(tech_section(t) for t in TECH)}</div>'''
 # ---------- Partners ----------
 partners = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Partners</p><h1 style="font-size:clamp(40px,5.5vw,76px)">Partners and programs</h1><hr class="rule"><p class="lead" style="margin-top:18px">The programs, platforms and companies MeierWerks works with.</p></div></section>
-<section style="padding-top:0"><div class="wrap"><div class="partners">{"".join(f'<a class="partner" href="{u}" target="_blank" rel="noopener"><div class="pname-big">{E(n)}</div><div class="prole">{E(r)}</div><p>{E(b)}</p></a>' for n,r,b,u in PARTNERS)}</div></div></section>'''
+<section style="padding-top:0"><div class="wrap"><div class="partners">{"".join(partner_card(n,r,b,u) for n,r,b,u in PARTNERS)}</div></div></section>'''
 # ---------- Team ----------
 team = f'''<section><div class="wrap"><p class="eyebrow">MeierWerks</p><h1 style="font-size:clamp(40px,5.5vw,76px)">Meet the Team</h1><hr class="rule" style="margin-bottom:40px">
 <div class="team">{"".join(f'<div class="member"><div class="portrait"><img src="assets/img/{img}" alt="{E(n)}" loading="lazy"></div><div><h3>{E(n)}</h3><p>{E(b)}</p></div></div>' for n,img,b in TEAM)}</div></div></section>'''

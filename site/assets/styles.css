@@ -73,7 +73,7 @@ section.tight{padding-block:clamp(36px,5vw,64px)}
 .wrks{display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4vw,64px);align-items:center}
 .wrks img{height:64px;width:auto}
 .wrks p{margin:0;font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(22px,2.6vw,34px);line-height:1;color:var(--warm-white);max-width:none}
-.wrks small{display:block;font-family:var(--body);font-weight:500;text-transform:none;font-size:17px;margin-top:10px;color:var(--warm-white);opacity:.9}
+.wrks small{display:block;font-family:var(--body);font-weight:500;text-transform:none;font-size:18px;line-height:1.4;margin-top:8px;color:var(--warm-white);opacity:.9}
 /* division detail pages */
 .div-section{display:grid;grid-template-columns:5fr 7fr;gap:clamp(28px,5vw,72px);align-items:start;padding-block:clamp(48px,6vw,88px);border-top:1px solid var(--rule)}
 .div-section:first-of-type{border-top:0}
@@ -143,7 +143,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .mark a{display:inline-flex;align-items:center;gap:inherit;text-decoration:none}
 .mark a:hover .divname{opacity:.75}
 
-.wrks .pbw{display:block;height:clamp(28px,3vw,42px);width:auto;margin-bottom:10px}
+.wrks .pbw{display:block;height:clamp(20px,2.2vw,30px);width:auto;margin-bottom:12px}
 
 
 
@@ -165,10 +165,14 @@ canvas.reel-tile.on{display:block}
 .tech-items dd{margin:0}
 .more a{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:16px;color:var(--teal);text-decoration:none}
 /* Partners page (2026-09-14) */
-.partners{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(16px,2vw,28px)}
+.partners{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(16px,2vw,28px)}
 .partner{background:#FBF8F1;border:2px solid var(--black);border-radius:14px;padding:26px 24px 22px;text-decoration:none;color:var(--ink);display:block;transition:transform .2s}
 .partner:hover{transform:translateY(-2px)}
 .partner .pname-big{font-family:var(--display);font-weight:700;font-size:34px;line-height:1;text-transform:uppercase}
+.partner .plogo{display:block;height:46px;width:auto;max-width:100%;object-fit:contain;object-position:left center;margin-bottom:14px}
+.partner .plogo-row{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.partner .plogo-row .plogo.mark{height:52px;margin-bottom:0}
+.partner .plogo-row .pname-big{font-size:26px;line-height:1.05}
 .partner .prole{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:14px;color:var(--cinnabar);margin:8px 0 12px}
 .partner p{margin:0;font-size:16px}
 @media (max-width:820px){.tech{grid-template-columns:1fr}.tech:nth-child(even) .tech-photo{order:0}.tech-photo{position:static}}
