@@ -84,7 +84,7 @@ section.tight{padding-block:clamp(36px,5vw,64px)}
 .principle p{margin:0;font-size:17px}
 /* WRKS strip */
 .poweredby{display:inline-flex;align-items:center;gap:calc(var(--pb,24px)*.3);margin:0;line-height:0}
-.poweredby img{height:var(--pb,24px);width:auto;display:block}
+.poweredby img.pb-text,.poweredby img.pb-logo{height:var(--pb,24px);width:auto;max-width:none;aspect-ratio:auto;object-fit:contain;border-radius:0;margin:0;padding:0;background:none;box-shadow:none;filter:none;display:block}
 .wrks .poweredby{--pb:clamp(40px,4.4vw,72px)}
 .wrks .wrks-caption{font-family:var(--body);font-weight:500;font-size:18px;line-height:1.4;margin:16px 0 0;color:var(--warm-white);opacity:.9;max-width:62ch}
 /* division detail pages */
