@@ -92,9 +92,6 @@ PARTNERS = [  # name, role, blurb, url
  ("Apple App Store","Published developer",
   "SDS : Speaker Design Suite is published on the App Store for Mac, iPhone and iPad.",
   "https://apps.apple.com/us/app/id6788087317"),
- ("EMM Labs","Launch collaboration",
-  "The Neo One launch is supported by a collaboration with EMM Labs Inc., providing a full reference electronics system.",
-  "https://www.emmlabs.com"),
 ]
 TEAM = [  # live meierwerks.com/team, verbatim
  ("Bennett Meier","team-bennett-meier.jpg","Bennett Meier is the founder and CEO of MeierWerks, a company redefining acoustics, deep learning, material science and manufacturing. With expertise in business management, manufacturing, and business strategy, Bennett has built MeierWerks into a vertically integrated/ United States based domestic manufacturer, developing class leading solutions in: Acoustics, Deep Learning, Additive Manufacturing, Composites, Magnetics and Heavy Industries. Under his leadership, the company is positioning itself as a global leader in post digital manufacturing and next-generation audio technology."),
