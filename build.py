@@ -150,7 +150,7 @@ def shell(title, body, current=None, desc="MeierWerks. Where the skill of craft 
 <main>{body}</main>
 <footer class="site-footer"><div class="wrap">
 <img src="assets/logos/mw-stamp+wordmark-white.svg" alt="MeierWerks">
-<div><ul>{"".join(f'<li><a href="{h}">{E(l)}</a></li>' for l,h in NAV)}<li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li><li><a href="support.html">Support</a></li></ul>
+<div><ul>{"".join(f'<li><a href="{h}">{E(l)}</a></li>' for l,h in NAV)}</ul>
 <p class="fine">Kent, CT USA &nbsp;·&nbsp; <a href="mailto:info@meierwerks.com">info@meierwerks.com</a> &nbsp;·&nbsp; (714) 440-5526</p></div>
 <div class="right">© MeierWerks Inc. All rights reserved.</div>
 </div></footer>
@@ -278,31 +278,28 @@ contact = '''<section><div class="wrap"><p class="eyebrow">MeierWerks</p><h1 sty
 <button type="submit">Send</button></form></div></div></section>'''
 # Privacy page moved to MW Acoustics (owner of SDS) on 2026-09-14 at Bennett's request.
 
-# ---------- Legal + support (2026-09-16): the App Store listing and the app itself link to
-# meierwerks.com/privacy, /terms and /support. Source of truth is the app bundle's own documents
-# (CrossoverDesignSuite.nosync/App/CrossoverDesignSuite/Resources/{Privacy,Terms}.md) copied verbatim into
-# docs/copy/; the support body is docs/copy/support-body.html. Re-copy when the app's documents change.
-def legal_page(path):
-    lines=[l.strip() for l in (ROOT/path).read_text().splitlines() if l.strip()]
-    out=[]
-    for i,l in enumerate(lines):
-        if i==0: out.append(f'<h1 style="font-size:clamp(40px,5.5vw,76px)">{E(l)}</h1>')
-        elif re.match(r'^\d+\. [A-Z]', l): out.append(f'<h2>{E(l)}</h2>')
-        elif l.startswith(("Effective:","Last updated:","Terms version:")): out.append(f'<p class="meta">{E(l)}</p>')
-        else: out.append(f'<p>{E(l)}</p>')
-    return f'<section><div class="wrap legal">{"".join(out)}</div></section>'
-privacy=legal_page("docs/copy/privacy.txt")
-terms=legal_page("docs/copy/terms.txt")
-support=f'<section><div class="wrap legal">{(ROOT/"docs/copy/support-body.html").read_text()}</div></section>'
 
 pages = {"index.html":("MeierWerks",home,None),"divisions.html":("Divisions — MeierWerks",divisions,"divisions.html"),
  "technology.html":("Technology — MeierWerks",technology,"technology.html"),
  "partners.html":("Partners — MeierWerks",partners,"partners.html"),
  "vision.html":("Vision — MeierWerks",principles,"vision.html"),"team.html":("Team — MeierWerks",team,"team.html"),
- "contact.html":("Contact — MeierWerks",contact,"contact.html"),
- "privacy.html":("Privacy Policy — SDS by MeierWerks",privacy,None),"terms.html":("Terms of Use — SDS by MeierWerks",terms,None),"support.html":("SDS Support — MeierWerks",support,None)}
+ "contact.html":("Contact — MeierWerks",contact,"contact.html")}
 for fn,(t,b,cur) in pages.items(): (SITE/fn).write_text(clean_urls(shell(t,b,cur), fn)); print("built",fn)
 # "Principles" became "Vision" (Bennett 2026-09-14). The old URL was live and linked; keep it answering.
 (SITE/"principles.html").write_text('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Vision — MeierWerks</title>'
  '<link rel="canonical" href="https://meierwerks.com/vision"><meta http-equiv="refresh" content="0; url=/vision">'
  '</head><body><p>This page moved to <a href="/vision">Vision</a>.</p></body></html>'); print("built principles.html (redirect)")
+# ---------- SDS legal redirects (2026-09-16). The SDS Privacy Policy, Terms and support page belong to MW Acoustics
+# (mwacoustic.com), NOT the parent: Bennett does not want MeierWerks entangled in the subsidiary's legal documents.
+# These stubs carry NO legal text. They exist only because the approved SDS 0.1.2 app and its App Store listing have
+# meierwerks.com/privacy, /terms and /support compiled in, and those installs keep following the old links long after
+# a new release ships. Keep them until the old install base has aged out, not for a week. canonical -> MW Acoustics,
+# noindex, written outside the pages loop so clean_urls() cannot stamp a self-canonical on them.
+for _slug, _title in (("privacy", "Privacy Policy"), ("terms", "Terms of Use"), ("support", "SDS Support")):
+    _dest = f"https://mwacoustic.com/{_slug}"
+    (SITE/f"{_slug}.html").write_text(
+        f'<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>{_title} — MW Acoustics</title>'
+        f'<meta name="robots" content="noindex"><link rel="canonical" href="{_dest}">'
+        f'<meta http-equiv="refresh" content="0; url={_dest}">'
+        f'</head><body><p>This page is at <a href="{_dest}">{_dest}</a>.</p></body></html>')
+    print(f"built {_slug}.html (redirect to MW Acoustics)")
