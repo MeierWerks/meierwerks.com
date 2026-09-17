@@ -37,6 +37,20 @@ PRINCIPLES = [  # Brand Guide p.4
  ("Complexity should become clear","Engineering and intelligence should make sophisticated systems easier to use, not harder to understand."),
  ("The system must outlive the moment","Every mark, product and communication belongs to an architecture built to expand without losing itself."),
 ]
+# ---------- Named copy constants (2026-09-17) ----------
+# These sentences were already on the pages, written inline in the page f-strings below. They are hoisted into
+# constants ONLY so the meta descriptions and Open Graph tags can reuse the SAME approved strings verbatim
+# (invariant 1: no new copy). Every one is listed in COPY-SOURCES.md; the rendered pages are unchanged.
+POSITIONING = "Where the skill of craft meets the precision of technology."          # Bennett, chat 2026-09-15
+STATEMENT = ["MeierWerks creates products and systems by joining analog judgment and material intelligence with skilled workmanship and the most advanced technologies.",
+ "Technology is not the identity. It is a tool in service of more thoughtful, useful and beautiful work."]  # Brand Guide p.3
+ARCH_H2 = "One ownership brand. Distinct divisions. Products with a clear home."      # Brand Guide p.5
+ARCH_RULE = "Every product belongs to one division. Only software carries the WRKS endorsement."  # Brand Guide p.6 rule
+TECH_LEAD = "Each division exists because a technology our first product needed did not yet exist. We developed it — and each one reaches far beyond audio."  # Bennett brief, chat 2026-09-15
+PARTNERS_LEAD = "The programs, platforms and companies MeierWerks works with."        # Bennett, chat 2026-09-14
+MISSION = ["Using a proprietary method of agnostic pursuit, we aim to deliver B2B/B2C technology, engineered for superior performance, scalability, & innovation across hardware, software, and manufacturing.",
+ "Our first product is a truly remarkable speaker, blending analog and digital technology in ways that deliver extraordinary warmth with the efficiencies of new thinking, new materials, and new processes."]  # Diane, "Proposal - Mission.docx"
+CONTACT_FINE = "Kent, CT USA · info@meierwerks.com · (714) 440-5526"                  # live meierwerks.com/contact + footer
 # Technology page (Bennett 2026-09-14: "a technology tab so we can talk about all the different divisions'
 # technology, and a little bit more detail"). Every trademark and claim is lifted from the live division copy
 # (LIVE_DIV above); the per-technology sentences are that copy re-cut by technology — see COPY-SOURCES.md.
@@ -85,6 +99,11 @@ TECH = [  # slug, lead, [(technology, what it is)], applications, photo alt  —
   "Energy, transportation, infrastructure, aerospace and defense.",
   "Molten steel being poured in a mill"),
 ]
+# Technology photo filenames. 2026-09-17: every source image over 150 KB was re-encoded to WebP (cwebp -q 82) and
+# the JPEG original moved to assets-src/ at the repo root; the rest are unchanged JPEGs. Extensions therefore differ
+# per photo — this map is the single place that says which is which.
+TECH_PHOTO = {"acoustics":"acoustics.jpg","magnetics":"magnetics.jpg","composites":"composites.jpg",
+ "deeplearning":"deeplearning.jpg","additive":"additive.webp","heavy":"heavy.webp"}
 # Partners page (Bennett 2026-09-14). Organisations only, named as they name themselves; no third-party logos —
 # official badges (NVIDIA Inception, App Store) go in when Bennett supplies the files. Evidence per row in
 # COPY-SOURCES.md; rows marked confirm=True still need Bennett's wording.
@@ -112,15 +131,66 @@ PARTNERS = [  # name, role, blurb, url
   "https://apps.apple.com/us/app/id6788087317"),
 ]
 TEAM = [  # live meierwerks.com/team, verbatim
- ("Bennett Meier","team-bennett-meier.jpg","Bennett Meier is the founder and CEO of MeierWerks, a company redefining acoustics, deep learning, material science and manufacturing. With expertise in business management, manufacturing, and business strategy, Bennett has built MeierWerks into a vertically integrated/ United States based domestic manufacturer, developing class leading solutions in: Acoustics, Deep Learning, Additive Manufacturing, Composites, Magnetics and Heavy Industries. Under his leadership, the company is positioning itself as a global leader in post digital manufacturing and next-generation audio technology."),
+ ("Bennett Meier","team-bennett-meier.webp","Bennett Meier is the founder and CEO of MeierWerks, a company redefining acoustics, deep learning, material science and manufacturing. With expertise in business management, manufacturing, and business strategy, Bennett has built MeierWerks into a vertically integrated/ United States based domestic manufacturer, developing class leading solutions in: Acoustics, Deep Learning, Additive Manufacturing, Composites, Magnetics and Heavy Industries. Under his leadership, the company is positioning itself as a global leader in post digital manufacturing and next-generation audio technology."),
  ("Roger Shively","team-roger-shively.jpg","Roger Shively brings nearly 40 years of expertise in acoustical engineering, product development, and advanced simulation. He previously served as Chief Engineer for Harman’s North American and Asian acoustic systems divisions. A Purdue alumnus, Roger was awarded the university’s 2022 Outstanding Alumni Award in Engineering Education. Roger is an active member of AES, ASA, SAE, and IEEE, and has published extensively on transducers, psychoacoustics, and computer modeling. Roger holds several patents and currently serves as Co-Chair of the AES Automotive Audio Technical Committee and Chair of the APDA’s Automotive Audio Education Pillar."),
- ("Diane Meier","team-diane-meier.jpg","Diane Meier is a branding expert with a proven track record in corporate direction, market expansion, and high-value brand positioning. As Principal of Meier Advertising, she has guided numerous companies toward growth, investment, and successful exits. Notably, she led the transformation of a disparate group of international factories into Sunworthy, the largest global luxury wall-covering brand, culminating in a $1 billion sale. Diane has advised leading brands across luxury retail, technology, and consumer goods, including Neiman Marcus, Balmain, Condé Nast, Blanc de Chine, and Chopard. Her expertise spans corporate strategy, brand storytelling, and scaling businesses from startup to unicorn status, making her a sought-after consultant for founders, executives, and investors."),
+ ("Diane Meier","team-diane-meier.webp","Diane Meier is a branding expert with a proven track record in corporate direction, market expansion, and high-value brand positioning. As Principal of Meier Advertising, she has guided numerous companies toward growth, investment, and successful exits. Notably, she led the transformation of a disparate group of international factories into Sunworthy, the largest global luxury wall-covering brand, culminating in a $1 billion sale. Diane has advised leading brands across luxury retail, technology, and consumer goods, including Neiman Marcus, Balmain, Condé Nast, Blanc de Chine, and Chopard. Her expertise spans corporate strategy, brand storytelling, and scaling businesses from startup to unicorn status, making her a sought-after consultant for founders, executives, and investors."),
  ("Dr. Maximilian Heres","team-maximilian-heres.jpg","Dr. Maximilian Heres is an accomplished engineer and scientist specializing in advanced manufacturing, additive technologies, and automation. Holding an M.S. in Physics and a Ph.D. in Chemical Engineering from the University of Tennessee, Knoxville, he conducted doctoral research at Oak Ridge National Laboratory, focusing on molecular dynamics in polymers. He played a key role in developing the 3D-printed autonomous shuttle, Olli 2.0, at Local Motors, later co-founding Loci Robotics, Inc., where he designed large-format robotic 3D printers. As founder of Heres 3D, he has provided engineering consulting, prototyping, and manufacturing solutions. A hands-on engineer and automotive enthusiast, Maximilian combines expertise in composites, CNC machining, and digital fabrication to push the boundaries of high-tech manufacturing."),
 ]
 NAV = [("Divisions","divisions.html"),("Vision","vision.html"),("Technology","technology.html"),("Partners","partners.html"),("Team","team.html"),("Contact","contact.html")]
 E = html.escape
 
 CSS_VER=hashlib.md5((SITE/"assets/styles.css").read_bytes()).hexdigest()[:8]
+
+# ---------- Discoverability layer (2026-09-17) ----------
+# Mirrors mwacoustic.com/build.py. Every description and og:description below is an EXISTING approved sentence,
+# reused verbatim from the copy constants above (see COPY-SOURCES.md). Invariant 1 holds: nothing new was written.
+DOMAIN="meierwerks.com"; SITE_URL=f"https://{DOMAIN}"
+# Fill these the day the accounts exist; empty string = tag is not emitted at all.
+MEASURE={"ga4":"G-P8QJJJ9JBN", "meta_pixel":"", "gsc_verify":"X8wSHMg5FDX4RILJuQ8vpMscUBvPaBiFMsKlfgads3A", "bing_verify":""}
+OG_DEFAULT="assets/img/hero-poster-card.jpg"   # Bennett's own drone still, Kent CT at dusk — the home hero frame
+
+def measurement_head():
+    t=[]
+    if MEASURE["gsc_verify"]: t.append(f'<meta name="google-site-verification" content="{E(MEASURE["gsc_verify"])}">')
+    if MEASURE["bing_verify"]: t.append(f'<meta name="msvalidate.01" content="{E(MEASURE["bing_verify"])}">')
+    return "".join(t)
+
+def measurement_body():
+    """GA4 + Meta Pixel, plus one shared outbound event so the Partners page App Store click is countable on both."""
+    out=[]
+    if MEASURE["ga4"]:
+        g=E(MEASURE["ga4"])
+        out.append(f'<script async src="https://www.googletagmanager.com/gtag/js?id={g}"></script>'
+                   f'<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}'
+                   f'gtag("js",new Date());gtag("config","{g}");</script>')
+    if MEASURE["meta_pixel"]:
+        p=E(MEASURE["meta_pixel"])
+        out.append('<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?'
+                   'n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;'
+                   'n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];'
+                   's.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");'
+                   f'fbq("init","{p}");fbq("track","PageView");</script>'
+                   f'<noscript><img height="1" width="1" style="display:none" alt="" '
+                   f'src="https://www.facebook.com/tr?id={p}&ev=PageView&noscript=1"></noscript>')
+    if MEASURE["ga4"] or MEASURE["meta_pixel"]:
+        out.append('<script>document.addEventListener("click",function(e){var a=e.target.closest'
+                   '(\'a[href*="apps.apple.com"]\');if(!a)return;'
+                   'if(window.gtag)gtag("event","app_store_click",{link_url:a.href,page:location.pathname});'
+                   'if(window.fbq)fbq("trackCustom","AppStoreClick",{page:location.pathname});},true);</script>')
+    return "".join(out)
+
+def jsonld(*blocks):
+    import json
+    return "".join('<script type="application/ld+json">%s</script>' % json.dumps(b, ensure_ascii=False) for b in blocks if b)
+
+# The six divisions and their one-line descriptors are the Brand Architecture sheet's own names and sentences.
+_SUBORGS=[dict([("@type","Organization"),("name",n),("description",d)] + ([("url",DIVISION_SITES[s])] if s in DIVISION_SITES else []))
+          for n,s,c,d,p in DIVISIONS]
+ORG_LD={"@context":"https://schema.org","@type":"Organization","name":"MeierWerks Inc.",
+ "url":f"{SITE_URL}/","logo":f"{SITE_URL}/icon-192.png",   # the circular MW mark
+ "email":"info@meierwerks.com","telephone":"+1-714-440-5526",
+ "address":{"@type":"PostalAddress","addressLocality":"Kent","addressRegion":"CT","addressCountry":"US"},
+ "subOrganization":_SUBORGS}
 
 def clean_urls(html, fn, domain="meierwerks.com"):
     """Extensionless internal links (GitHub Pages serves /x for x.html) + canonical tag."""
@@ -133,14 +203,21 @@ def clean_urls(html, fn, domain="meierwerks.com"):
         html = re.sub(r'(</title>)', r'\1' + canon, html, count=1)
     return html
 
-def shell(title, body, current=None, desc="MeierWerks. Where the skill of craft meets the precision of technology."):
+def shell(title, body, current=None, desc=f"MeierWerks. {POSITIONING}", og_image=None, ld=None, og_type="website"):
     CUR=' aria-current="page"'
     nav = "".join(f'<li><a href="{h}"{CUR if h==current else ""}>{E(l)}</a></li>' for l,h in NAV)
+    img=f"{SITE_URL}/{og_image or OG_DEFAULT}"
+    social=(f'<meta property="og:site_name" content="MeierWerks"><meta property="og:type" content="{og_type}">'
+            f'<meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}">'
+            f'<meta property="og:image" content="{E(img)}"><meta property="og:locale" content="en_US">'
+            f'<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{E(title)}">'
+            f'<meta name="twitter:description" content="{E(desc)}"><meta name="twitter:image" content="{E(img)}">')
     return f'''<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{E(title)}</title><meta name="description" content="{E(desc)}">
+{social}{measurement_head()}{jsonld(*(ld or []))}
 <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" href="assets/logos/mw-circle-black.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"><meta name="theme-color" content="#145868">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Jost:ital,wght@0,500;1,500&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Jost:ital,wght@0,500;1,500&display=swap">
 <link rel="stylesheet" href="assets/styles.css?v={CSS_VER}"></head>
 <body>
 <header class="site-header"><div class="wrap">
@@ -154,6 +231,7 @@ def shell(title, body, current=None, desc="MeierWerks. Where the skill of craft 
 <p class="fine">Kent, CT USA &nbsp;·&nbsp; <a href="mailto:info@meierwerks.com">info@meierwerks.com</a> &nbsp;·&nbsp; (714) 440-5526</p></div>
 <div class="right">© MeierWerks Inc. All rights reserved.</div>
 </div></footer>
+{measurement_body()}
 </body></html>'''
 
 def division_tile(d):
@@ -177,12 +255,12 @@ def product_card(k):
 
 # ---------- Home ----------
 home = f'''
-<section class="hero hero-film"><video class="hero-bg" autoplay muted loop playsinline preload="metadata" poster="assets/img/hero-poster.jpg" aria-hidden="true" tabindex="-1"><source src="assets/video/evening-mist.mp4" type="video/mp4"></video><div class="hero-scrim" aria-hidden="true"></div><div class="wrap"><p class="eyebrow">Foundation</p>
-<div class="grid"><h1>Where the skill of craft meets the precision of technology.</h1>
-<div class="statement"><p>MeierWerks creates products and systems by joining analog judgment and material intelligence with skilled workmanship and the most advanced technologies.</p><p>Technology is not the identity. It is a tool in service of more thoughtful, useful and beautiful work.</p></div></div></div></section>
+<section class="hero hero-film"><video class="hero-bg" autoplay muted loop playsinline preload="metadata" poster="assets/img/hero-poster.webp" aria-hidden="true" tabindex="-1"><source src="assets/video/evening-mist.mp4" type="video/mp4"></video><div class="hero-scrim" aria-hidden="true"></div><div class="wrap"><p class="eyebrow">Foundation</p>
+<div class="grid"><h1>{E(POSITIONING)}</h1>
+<div class="statement"><p>{E(STATEMENT[0])}</p><p>{E(STATEMENT[1])}</p></div></div></div></section>
 <section class="band-teal"><div class="wrap"><p class="eyebrow">Brand architecture</p>
-<h2>One ownership brand. Distinct divisions. Products with a clear home.</h2>
-<p class="lead" style="margin:18px 0 36px">Every product belongs to one division. Only software carries the WRKS endorsement.</p>
+<h2>{E(ARCH_H2)}</h2>
+<p class="lead" style="margin:18px 0 36px">{E(ARCH_RULE)}</p>
 <div class="divisions">{"".join(division_tile(d) for d in DIVISIONS)}</div></div></section>
 <section><div class="wrap"><p class="eyebrow">Foundation</p><h2>Four governing principles</h2><hr class="rule" style="margin-bottom:36px">
 <div class="principles">{"".join(f'<div class="principle"><div class="num">{i:02d}</div><div><h3>{E(t)}</h3><p>{E(b)}</p></div></div>' for i,(t,b) in enumerate(PRINCIPLES,1))}</div></div></section>
@@ -205,7 +283,7 @@ for name,slug,c,desc,prods in DIVISIONS:
 </div>
 <div><p class="label">Division</p><h2>{E(name)}</h2><p class="head">{E(head)}</p>{"".join(f"<p>{E(x)}</p>" for x in paras)}
 {('<p class="label" style="margin-top:26px">Current products</p>' + prod_html) if prods else ""}</div></div>''')
-divisions = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Brand architecture</p><h1 style="font-size:clamp(40px,5.5vw,76px)">The operating structure</h1><hr class="rule"><p class="lead" style="margin-top:18px">Every product belongs to one division. Only software carries the WRKS endorsement.</p></div></section>
+divisions = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Brand architecture</p><h1 style="font-size:clamp(40px,5.5vw,76px)">The operating structure</h1><hr class="rule"><p class="lead" style="margin-top:18px">{E(ARCH_RULE)}</p></div></section>
 <div class="wrap divs-list">{"".join(divs)}</div>
 <script>
 (function(){{
@@ -238,13 +316,13 @@ divisions = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Bran
 </script>'''
 # ---------- Principles ----------
 principles = f'''<section class="hero" style="padding-bottom:0"><div class="wrap"><p class="eyebrow">Foundation</p>
-<div class="grid"><h1>Where the skill of craft meets the precision of technology.</h1>
-<div class="statement"><p>MeierWerks creates products and systems by joining analog judgment and material intelligence with skilled workmanship and the most advanced technologies.</p><p>Technology is not the identity. It is a tool in service of more thoughtful, useful and beautiful work.</p></div></div></div></section>
+<div class="grid"><h1>{E(POSITIONING)}</h1>
+<div class="statement"><p>{E(STATEMENT[0])}</p><p>{E(STATEMENT[1])}</p></div></div></div></section>
 <section><div class="wrap"><h2>Four governing principles</h2><hr class="rule" style="margin-bottom:36px">
 <div class="principles">{"".join(f'<div class="principle"><div class="num">{i:02d}</div><div><h3>{E(t)}</h3><p>{E(b)}</p></div></div>' for i,(t,b) in enumerate(PRINCIPLES,1))}</div></div></section>
 <section class="band-teal"><div class="wrap"><p class="eyebrow">Mission</p><h2>Mission and proof</h2>
-<p class="lead" style="margin-top:22px">Using a proprietary method of agnostic pursuit, we aim to deliver B2B/B2C technology, engineered for superior performance, scalability, &amp; innovation across hardware, software, and manufacturing.</p>
-<p class="lead">Our first product is a truly remarkable speaker, blending analog and digital technology in ways that deliver extraordinary warmth with the efficiencies of new thinking, new materials, and new processes.</p></div></section>'''
+<p class="lead" style="margin-top:22px">{E(MISSION[0])}</p>
+<p class="lead">{E(MISSION[1])}</p></div></section>'''
 # ---------- Technology ----------
 DIV_BY_SLUG = {d[1]: d for d in DIVISIONS}
 def tech_section(t):
@@ -254,15 +332,15 @@ def tech_section(t):
     def dt(k): u=TECH_LINKS.get(k); return f'<a href="{u}" target="_blank" rel="noopener">{E(k)}</a>' if u else E(k)
     dl = "".join(f'<div><dt>{dt(k)}</dt><dd>{E(v)}</dd></div>' for k,v in items)
     return f'''<section class="tech" id="{slug}">
-<figure class="tech-photo"><img src="assets/img/tech/{slug}.jpg" alt="{E(alt)}" loading="lazy"></figure>
+<figure class="tech-photo"><img src="assets/img/tech/{TECH_PHOTO[slug]}" alt="{E(alt)}" loading="lazy"></figure>
 <div class="tech-body"><p class="label">Division</p><h2><img class="divname" src="assets/logos/division-{slug}-black.svg" alt="{E(name)}"></h2>
 <p class="head">{E(lead)}</p><dl class="tech-items">{dl}</dl>
 <p class="label" style="margin-top:26px">Applications</p><p>{E(apps)}</p>
 <p class="more"><a href="divisions.html#{slug}">{E(name)} on the Divisions page →</a></p></div></section>'''
-technology = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Technology</p><h1 style="font-size:clamp(40px,5.5vw,76px)">The technology behind each division</h1><hr class="rule"><p class="lead" style="margin-top:18px">Each division exists because a technology our first product needed did not yet exist. We developed it — and each one reaches far beyond audio.</p></div></section>
+technology = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Technology</p><h1 style="font-size:clamp(40px,5.5vw,76px)">The technology behind each division</h1><hr class="rule"><p class="lead" style="margin-top:18px">{E(TECH_LEAD)}</p></div></section>
 <div class="wrap tech-list">{"".join(tech_section(t) for t in TECH)}</div>'''
 # ---------- Partners ----------
-partners = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Partners</p><h1 style="font-size:clamp(40px,5.5vw,76px)">Partners and programs</h1><hr class="rule"><p class="lead" style="margin-top:18px">The programs, platforms and companies MeierWerks works with.</p></div></section>
+partners = f'''<section class="tight"><div class="wrap"><p class="eyebrow">Partners</p><h1 style="font-size:clamp(40px,5.5vw,76px)">Partners and programs</h1><hr class="rule"><p class="lead" style="margin-top:18px">{E(PARTNERS_LEAD)}</p></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="partners">{"".join(partner_card(n,r,b,u) for n,r,b,u in PARTNERS)}</div></div></section>'''
 # ---------- Team ----------
 team = f'''<section><div class="wrap"><p class="eyebrow">MeierWerks</p><h1 style="font-size:clamp(40px,5.5vw,76px)">Meet the Team</h1><hr class="rule" style="margin-bottom:40px">
@@ -279,12 +357,30 @@ contact = '''<section><div class="wrap"><p class="eyebrow">MeierWerks</p><h1 sty
 # Privacy page moved to MW Acoustics (owner of SDS) on 2026-09-14 at Bennett's request.
 
 
-pages = {"index.html":("MeierWerks",home,None),"divisions.html":("Divisions — MeierWerks",divisions,"divisions.html"),
- "technology.html":("Technology — MeierWerks",technology,"technology.html"),
- "partners.html":("Partners — MeierWerks",partners,"partners.html"),
- "vision.html":("Vision — MeierWerks",principles,"vision.html"),"team.html":("Team — MeierWerks",team,"team.html"),
- "contact.html":("Contact — MeierWerks",contact,"contact.html")}
-for fn,(t,b,cur) in pages.items(): (SITE/fn).write_text(clean_urls(shell(t,b,cur), fn)); print("built",fn)
+# ---------- Page-level JSON-LD (2026-09-17) ----------
+# Only schema that maps to content already on the page: the six divisions, the four team bios, the partner list and
+# the contact details. Every name, descriptor and bio below is the same approved string the page renders.
+DIVISIONS_LD={"@context":"https://schema.org","@type":"ItemList","name":"MeierWerks divisions",
+ "itemListElement":[{"@type":"ListItem","position":i,"item":o} for i,o in enumerate(_SUBORGS,1)]}
+TEAM_LD=[{"@context":"https://schema.org","@type":"Person","name":n,"description":b,
+ "image":f"{SITE_URL}/assets/img/{img}","worksFor":{"@type":"Organization","name":"MeierWerks Inc.","url":f"{SITE_URL}/"}}
+ for n,img,b in TEAM]
+PARTNERS_LD={"@context":"https://schema.org","@type":"ItemList","name":"Partners and programs",
+ "itemListElement":[{"@type":"ListItem","position":i,
+   "item":{"@type":"Organization","name":n,"description":b,"url":u}} for i,(n,r,b,u) in enumerate(PARTNERS,1)]}
+CONTACT_LD={"@context":"https://schema.org","@type":"ContactPage","url":f"{SITE_URL}/contact",
+ "description":CONTACT_FINE,"about":{"@type":"Organization","name":"MeierWerks Inc.","url":f"{SITE_URL}/"}}
+
+pages = {  # fn: (title, body, nav-current, description, extra JSON-LD, og image, og type)
+ "index.html":("MeierWerks",home,None,STATEMENT[0],[],None,"website"),
+ "divisions.html":("Divisions — MeierWerks",divisions,"divisions.html",f"{ARCH_H2} {ARCH_RULE}",[DIVISIONS_LD],None,"website"),
+ "technology.html":("Technology — MeierWerks",technology,"technology.html",TECH_LEAD,[],"assets/img/tech/acoustics.jpg","website"),
+ "partners.html":("Partners — MeierWerks",partners,"partners.html",PARTNERS_LEAD,[PARTNERS_LD],None,"website"),
+ "vision.html":("Vision — MeierWerks",principles,"vision.html",STATEMENT[1],[],None,"website"),
+ "team.html":("Team — MeierWerks",team,"team.html",f"MeierWerks. {POSITIONING}",TEAM_LD,None,"website"),
+ "contact.html":("Contact — MeierWerks",contact,"contact.html",CONTACT_FINE,[CONTACT_LD],None,"website")}
+for fn,(t,b,cur,dsc,ld,ogi,ogt) in pages.items():
+    (SITE/fn).write_text(clean_urls(shell(t,b,cur,desc=dsc,og_image=ogi,ld=[ORG_LD]+ld,og_type=ogt), fn)); print("built",fn)
 # "Principles" became "Vision" (Bennett 2026-09-14). The old URL was live and linked; keep it answering.
 (SITE/"principles.html").write_text('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Vision — MeierWerks</title>'
  '<link rel="canonical" href="https://meierwerks.com/vision"><meta http-equiv="refresh" content="0; url=/vision">'
@@ -303,3 +399,19 @@ for _slug, _title in (("privacy", "Privacy Policy"), ("terms", "Terms of Use"), 
         f'<meta http-equiv="refresh" content="0; url={_dest}">'
         f'</head><body><p>This page is at <a href="{_dest}">{_dest}</a>.</p></body></html>')
     print(f"built {_slug}.html (redirect to MW Acoustics)")
+
+# ---------- robots.txt + sitemap.xml (2026-09-17) ----------
+# Built from `pages`, so only the seven real pages are listed. The redirect stubs are deliberately absent:
+# /principles redirects to /vision, and /privacy, /terms and /support are content-free noindex redirects to
+# MW Acoustics. They stay crawlable (so the canonical is read) but must never be offered as pages of this site.
+import datetime
+_today=datetime.date.today().isoformat()
+_PRIORITY={"index.html":"1.0","divisions.html":"0.9","technology.html":"0.9","vision.html":"0.7",
+ "partners.html":"0.6","team.html":"0.6","contact.html":"0.6"}
+_urls="".join(
+ '<url><loc>%s/%s</loc><lastmod>%s</lastmod><priority>%s</priority></url>' %
+ (SITE_URL, "" if fn=="index.html" else fn[:-5], _today, _PRIORITY.get(fn,"0.5")) for fn in pages)
+(SITE/"sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
+ '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">%s</urlset>\n' % _urls)
+(SITE/"robots.txt").write_text("User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % SITE_URL)
+print("built sitemap.xml + robots.txt")

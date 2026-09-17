@@ -58,3 +58,35 @@ Fonts: DIN Condensed Bold + Futura Medium load from the local Mac (Brand Guide p
 - 2026-09-15: "Powered by" lockups now use the words cut from the delivered POWERED BY WRKS lockup artwork (assets/logos/powered-by-white.svg / powered-by-black.svg, viewBox cropped to the two words) beside the WRKS colour logo, both set to one height (--pb) so the cap height of POWERED BY equals the logo height, gap = 0.3 × height. Replaces live text, which rendered with wide side bearings in Bennett's local DIN Condensed. Bennett, chat.
 - 2026-09-15: WRKS caption second clause changed to "built into our software and services." — Bennett, chat.
 
+
+## 2026-09-17 — Discoverability layer (meta descriptions, Open Graph, JSON-LD, sitemap)
+No new copy was written. Every meta/OG description reuses an approved sentence already on the page; those sentences
+were hoisted out of the page f-strings into named constants in build.py (POSITIONING, STATEMENT, ARCH_H2, ARCH_RULE,
+TECH_LEAD, PARTNERS_LEAD, MISSION, CONTACT_FINE) so the tag and the page can never drift apart. Rendered page bodies
+are byte-identical to the 2026-09-16 build apart from five image filenames (jpg → webp).
+
+| Page | description / og:description | Source |
+|---|---|---|
+| / | "MeierWerks creates products and systems by joining analog judgment and material intelligence with skilled workmanship and the most advanced technologies." | Brand Guide p.3 — Foundation statement, ¶1 (on the home hero) |
+| /divisions | "One ownership brand. Distinct divisions. Products with a clear home. Every product belongs to one division. Only software carries the WRKS endorsement." | Brand Guide p.5 + p.6 rule (both already on the page) |
+| /technology | "Each division exists because a technology our first product needed did not yet exist. We developed it — and each one reaches far beyond audio." | Technology page lead (Bennett's brief, chat 2026-09-15) |
+| /partners | "The programs, platforms and companies MeierWerks works with." | Partners page lead (Bennett, chat 2026-09-14) |
+| /vision | "Technology is not the identity. It is a tool in service of more thoughtful, useful and beautiful work." | Brand Guide p.3 — Foundation statement, ¶2 (on the page) |
+| /team | "MeierWerks. Where the skill of craft meets the precision of technology." | the site's existing default description (Bennett, chat 2026-09-15). The Team page carries no prose of its own. |
+| /contact | "Kent, CT USA · info@meierwerks.com · (714) 440-5526" | live meierwerks.com/contact + footer (the row above in this file) |
+
+JSON-LD: an Organization block for MeierWerks Inc. on every page (url, logo = the circular MW mark icon-192.png,
+Kent CT US, info@meierwerks.com, (714) 440-5526) with the six divisions as subOrganization — names and one-line
+descriptors straight from the Brand Architecture sheet. Page-level additions map to content already rendered:
+ItemList of divisions (/divisions), Person per team member with the verbatim live bio (/team), ItemList of partners
+(/partners), ContactPage (/contact). No Product schema on the parent site — the products are described on
+mwacoustic.com, which already carries them.
+
+Images: every site/assets raster over 150 KB re-encoded to WebP (cwebp -q 82 -metadata none) — hero-poster,
+team-bennett-meier, team-diane-meier, tech/additive, tech/heavy. The JPEG originals moved to assets-src/ at the
+repo root (out of the published folder); nothing else referenced them. Photos under 150 KB are unchanged JPEGs, so
+tech photo filenames now differ by extension — TECH_PHOTO in build.py is the single map that records which is which.
+
+Measurement: MEASURE in build.py holds empty ga4 / meta_pixel / gsc_verify / bing_verify strings. While they are
+empty NO tag is emitted. Filling one in is the whole install; the shared outbound-click listener counts the
+Partners page App Store link on both GA4 and Meta.
